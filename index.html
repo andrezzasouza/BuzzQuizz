@@ -1,60 +1,100 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./css/reset.css">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/style.css" />
     <title>BuzzQuizz</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <h1>
-            BuzzQuizz
-        </h1>
+      <h1>BuzzQuizz</h1>
     </header>
     <!-- TELA 1 - LISTA DE QUIZZES-->
-    <main class="screen1">
-        <section class="no-quizz">
-            <p>
-                Você não criou nenhum quizz ainda :(
+    <main class="screen1 hide">
+      <section class="no-quizz">
+        <p>Você não criou nenhum quizz ainda :(</p>
+        <button class="btn-create-quizz">Criar Quizz</button>
+      </section>
+      <section>
+        <h2>Todos os Quizzes</h2>
+        <div class="quizz-container">
+          <div class="quizz">
+            <p class="quizz-title">
+              Acerte os personagens corretos dos Simpsons e prove seu amor!
             </p>
-            <button class="btn-create-quizz">
-                Criar Quizz
-            </button>
-        </section>
-        <section>
-            <h2>
-                Todos os Quizzes
-            </h2>
-            <div class="quizz-container">
-                <div class="quizz">
-                    <p class="quizz-title">
-                        Acerte os personagens corretos dos Simpsons e prove seu amor!
-                    </p>
-                </div>
-                <div class="quizz">
-                    <p class="quizz-title"></p>
-                </div>
-                <div class="quizz">
-                    <p class="quizz-title"></p>
-                </div>
-                <div class="quizz">
-                    <p class="quizz-title"></p>
-                </div>
-                <div class="quizz">
-                    <p class="quizz-title"></p>
-                </div>
-                <div class="quizz">
-                    <p class="quizz-title"></p>
-                </div>
-            </div>
-        </section>
+          </div>
+          <div class="quizz">
+            <p class="quizz-title"></p>
+          </div>
+          <div class="quizz">
+            <p class="quizz-title"></p>
+          </div>
+          <div class="quizz">
+            <p class="quizz-title"></p>
+          </div>
+          <div class="quizz">
+            <p class="quizz-title"></p>
+          </div>
+          <div class="quizz">
+            <p class="quizz-title"></p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- TELA 2 - LISTA DE QUIZZES-->
+    <main class="screen1">
+      <section class="my-quizzes">
+        <div class="my-quizzes-top">
+          <h2>Seus quizzes</h2>
+          <ion-icon name="add-circle"></ion-icon>
+        </div>
+        <div class="my-quizzes-container">
+          <div class="my-quizz">
+            <p class="quizz-title"></p>
+          </div>
+          <div class="my-quizz">
+            <p class="quizz-title"></p>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>Todos os Quizzes</h2>
+        <div class="quizz-container">
+          <div class="quizz">
+            <p class="quizz-title">
+              Acerte os personagens corretos dos Simpsons e prove seu amor!
+            </p>
+          </div>
+          <div class="quizz">
+            <p class="quizz-title"></p>
+          </div>
+          <div class="quizz">
+            <p class="quizz-title"></p>
+          </div>
+          <div class="quizz">
+            <p class="quizz-title"></p>
+          </div>
+          <div class="quizz">
+            <p class="quizz-title"></p>
+          </div>
+          <div class="quizz">
+            <p class="quizz-title"></p>
+          </div>
+        </div>
+      </section>
     </main>
     <!-- JAVASCRIPT -->
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./js/script.js"></script>
-</body>
+  </body>
 </html>
