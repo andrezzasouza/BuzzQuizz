@@ -178,3 +178,185 @@ main h2 {
 .my-quizz:first-child {
   margin-left: 0px;
 }
+
+/* TELAS 3/4/5/6/7 - LISTA DE QUIZZES */
+
+.top-image {
+  position: fixed;
+  top: 69px;
+  left: 0px;
+  width: 100%;
+  height: 30vh;
+  background-image: url("https://d2p7ncqs8iaoqd.cloudfront.net/uploads/2020/07/Hogwaarts.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.top-image h1 {
+  font-size: 39px;
+  line-height: 46px;
+  color: #ffffff;
+}
+
+.question {
+  margin: calc(30vh + 110px) auto 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.question-box {
+  width: 759px;
+  height: 676px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin-bottom: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+}
+
+.question-box-top {
+  width: 688.16px;
+  height: 137.99px;
+  background: #434ca0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.question-box-top h1 {
+  font-weight: bold;
+  font-size: 23px;
+  line-height: 27px;
+  color: #ffffff;
+}
+
+.question-box-choices {
+  width: 688.16px;
+  height: 500.99px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.choices {
+  width: 329.91px;
+  height: 220px;
+}
+
+.choices img {
+  width: 329.91px;
+  height: 175.2px;
+  margin-bottom: 10px;
+}
+
+.choices p {
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 23px;
+  color: #000000;
+}
+
+.choices .wrong {
+  color: #ff4b4b;
+}
+
+.choices .right {
+  color: #009c22;
+}
+
+.not {
+  opacity: 0.3;
+}
+
+.results {
+  width: 759px;
+  height: 430px;
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+}
+
+.results-top {
+  width: 727px;
+  height: 99px;
+  background: #ec362d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.results-top p {
+  font-weight: bold;
+  font-size: 23px;
+  line-height: 27px;
+  color: #ffffff;
+}
+
+.results-feedback {
+  display: flex;
+  margin-top: 20px;
+}
+
+.results-feedback img {
+  width: 364px;
+  height: 273px;
+  margin-right: 20px;
+}
+
+.results-feedback p {
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 25px;
+  color: #484848;
+}
+
+.buttons {
+  width: 300px;
+  height: auto;
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.buttons .restart {
+  width: 260.38px;
+  height: 52px;
+  background: #ec362d;
+  border-radius: 15px;
+  border: none;
+  margin-bottom: 20px;
+  font-size: 21px;
+  line-height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff5f4;
+}
+
+.buttons .back-to-home {
+  width: 219.64px;
+  height: 44px;
+  font-size: 21px;
+  line-height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #818181;
+  border: none;
+  background-color: #fafafa;
+}
