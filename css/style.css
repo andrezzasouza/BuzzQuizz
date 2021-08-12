@@ -117,10 +117,10 @@ main h2 {
   position: relative;
 }
 
-.quizz p {
+.quizz-title {
   width: 301px;
   position: absolute;
-  bottom: 7px;
+  bottom: 11px;
   left: 18px;
 }
 
@@ -226,7 +226,7 @@ main h2 {
 .question-box {
   width: 759px;
   height: 676px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
   margin-bottom: 50px;
   display: flex;
   flex-wrap: wrap;
@@ -294,8 +294,7 @@ main h2 {
   width: 759px;
   height: 430px;
   background: #fff;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -331,9 +330,10 @@ main h2 {
 
 .results-feedback p {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 19px;
   line-height: 25px;
   color: #484848;
+  width: 328px;
 }
 
 .buttons {
@@ -356,17 +356,19 @@ main h2 {
   margin-bottom: 20px;
   font-size: 21px;
   line-height: 25px;
+  font-family: "Roboto", sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff5f4;
 }
 
-.buttons .back-to-home {
+/*.buttons*/ .back-to-home {
   width: 219.64px;
   height: 44px;
   font-size: 21px;
   line-height: 25px;
+  font-family: "Roboto", sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -383,7 +385,7 @@ main.screen9,
 main.screen10,
 main.screen11 {
   max-width: 600px;
-  margin: 140px auto 0;
+  margin: 140px auto 166px;
 }
 
 .screen8 h2,
@@ -405,7 +407,7 @@ main.screen11 {
   margin: 27px 0 85px;
 }
 
-.create-quizz-input {
+.quizz-input {
   background: #FFFFFF;
   border: 1px solid #D1D1D1;
   border-radius: 5px;
@@ -417,14 +419,14 @@ main.screen11 {
   font-family: inherit; /* verificar se deu certo */
   font-style: italic;
   margin-bottom: 9px;
-  padding: 13px 23.16px 11px;
+  padding: 13px 23.16px 14px;
 }
 
-.create-quizz-input:focus {
+.quizz-input:focus {
   outline: none;
 }
 
-.screen8 .create-quizz-input:last-child {
+.screen8 .quizz-input:last-child {
   margin-bottom: 0;
 }
 
@@ -450,14 +452,24 @@ main.screen11 {
   background: #FFFFFF;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
   width: 100%;
-  padding: 21px 20px 24px 16px;
+  padding: 21px 20px 5px 16px;
   margin: 36px 0 2px;
 }
 
+.create-question-box div {
+  margin-bottom: 14px;
+}
+
 h3 {
+  margin-bottom: 14px;
   font-weight: 700;
   font-size: 20px;
   line-height: 23px;
+}
+
+.uncollapsed-question h3,
+.uncollapsed-level h3 {
+  margin-bottom: 0;
 }
 
 .uncollapsed-question,
@@ -470,6 +482,13 @@ h3 {
   justify-content: space-between;
   align-items: center;
   margin-top: 22px;
+  padding: 27px 24px 24px 17px;
+}
+
+.uncollapsed-question ion-icon,
+.uncollapsed-level ion-icon {
+  width: 26px;
+  height: 23px;
 }
 
 .btn-create-levels {
@@ -477,11 +496,15 @@ h3 {
   width: 353.91px;
   height: 54px;
   background: #EC362D;
+  color: #FFF5F4;
   border-radius: 15px;
   border: none;
   font-size: 21px;
   line-height: 25px;
   font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* TELA 10 - CRIANDO NÍVEIS */
@@ -490,11 +513,11 @@ h3 {
   background: #FFFFFF;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
   width: 100%;
-  padding: 21px 20px 24px 16px;
+  padding: 21px 20px 19px 16px;
   margin: 36px 0 2px;
 }
 
-.btn-create-level {
+.btn-finalize-quizz {
   background: #EC362D;
   color: #fff5f4;
   border-radius: 15px;
@@ -513,22 +536,24 @@ h3 {
 /* TELA 11 - QUIZZ PRONTO */
 
 .created-quizz-img {
-  max-width: 500px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url("./images/created-quizz");
+  width: 500px;
+  height: 266px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url("../images/created-quizz.png");
+  background-size: cover;
   border-radius: 5px;
   position: relative;
+  margin: 46px auto 45px;
 }
 
 .created-quizz-title {
   font-size: 23px;
   line-height: 27px;
-  display: flex;
-  align-items: center;
   color: #FFFFFF;
   width: 90.8%; /*não sei se funciona */
   bottom: 9px;
   position: absolute;
   left: 23px;
+  bottom: 20px;
 }
 
 .btn-access-quizz {
@@ -545,4 +570,8 @@ h3 {
   justify-content: center;
   color: #fff5f4;
   font-family:inherit;
+}
+
+.screen11 button {
+  margin: 0 auto 20px;
 }

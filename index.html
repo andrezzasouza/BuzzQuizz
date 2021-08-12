@@ -14,7 +14,7 @@
       <h1>BuzzQuizz</h1>
     </header>
     <!-- TELA 1 - LISTA DE QUIZZES-->
-    <main class="screen1">
+    <main class="screen1 hide">
       <section class="no-quizz">
         <p>Você não criou nenhum Quizz ainda :(</p>
         <button class="btn-create-quizz">Criar Quizz</button>
@@ -54,7 +54,9 @@
         </div>
         <div class="my-quizzes-container">
           <div class="my-quizz">
-            <p class="quizz-title"></p>
+            <p class="quizz-title">
+              O quão Potterhead é você?
+            </p>
           </div>
           <div class="my-quizz">
             <p class="quizz-title"></p>
@@ -88,7 +90,7 @@
       </section>
     </main>
     <!-- TELAS 3/4/5/6/7 - LISTA DE QUIZZES-->
-    <main class="screen3-7 ">
+    <main class="screen3-7 hide">
       <div class="top-image">
         <h1>O quão Potterhead é você?</h1>
       </div>
@@ -210,17 +212,17 @@
         Comece pelo começo
       </h2>
       <div class="create-quizz-box">
-        <input type="text" class="create-quizz-input" placeholder="Título do seu quizz">
-        <input type="text" class="create-quizz-input" placeholder="URL da imagem do seu quizz">
-        <input type="text" class="create-quizz-input" placeholder="Quantidade de perguntas do quizz">
-        <input type="text" class="create-quizz-input" placeholder="Quantidade de níveis do quizz">
+        <input type="text" class="quizz-input" placeholder="Título do seu quizz">
+        <input type="text" class="quizz-input" placeholder="URL da imagem do seu quizz">
+        <input type="text" class="quizz-input" placeholder="Quantidade de perguntas do quizz">
+        <input type="text" class="quizz-input" placeholder="Quantidade de níveis do quizz">
       </div>
       <button class="btn-create-questions">
         Prosseguir pra criar perguntas
       </button>
     </main>
     <!--TELA 9 - CRIANDO PERGUNTAS -->
-    <main class="screen9">
+    <main class="screen9 hide">
       <h2>
         Crie suas perguntas
       </h2>
@@ -229,30 +231,30 @@
           <h3>
             Pergunta 1
           </h3>
-          <input type="text" class="create-quizz-input" placeholder="Texto da pergunta">
-          <input type="text" class="create-quizz-input" placeholder="Cor de fundo da pergunta">
+          <input type="text" class="quizz-input" placeholder="Texto da pergunta">
+          <input type="text" class="quizz-input" placeholder="Cor de fundo da pergunta">
         </div>
         <div>
           <h3>
             Resposta correta
           </h3>
-          <input type="text" class="create-quizz-input" placeholder="Resposta correta">
-          <input type="text" class="create-quizz-input" placeholder="URL da imagem">
+          <input type="text" class="quizz-input" placeholder="Resposta correta">
+          <input type="text" class="quizz-input" placeholder="URL da imagem">
         </div>
         <div>
           <h3>
-            Respostas Incorretas
+            Respostas incorretas
           </h3>
-          <input type="text" class="create-quizz-input" placeholder="Resposta incorreta 1">
-          <input type="text" class="create-quizz-input" placeholder="URL da imagem 1">
+          <input type="text" class="quizz-input" placeholder="Resposta incorreta 1">
+          <input type="text" class="quizz-input" placeholder="URL da imagem 1">
         </div>
         <div>
-          <input type="text" class="create-quizz-input" placeholder="Resposta incorreta 2">
-          <input type="text" class="create-quizz-input" placeholder="URL da imagem 2">
+          <input type="text" class="quizz-input" placeholder="Resposta incorreta 2">
+          <input type="text" class="quizz-input" placeholder="URL da imagem 2">
         </div>
         <div>
-          <input type="text" class="create-quizz-input" placeholder="Resposta incorreta 3">
-          <input type="text" class="create-quizz-input" placeholder="URL da imagem 3">
+          <input type="text" class="quizz-input" placeholder="Resposta incorreta 3">
+          <input type="text" class="quizz-input" placeholder="URL da imagem 3">
         </div>
       </div>
       <div class="uncollapsed-question">
@@ -272,7 +274,7 @@
       </button>
     </main>
     <!-- TELA 10 - CRIANDO NÍVEIS -->
-    <main class="screen10">
+    <main class="screen10 hide">
       <h2>
         Agora, decida os níveis
       </h2>
@@ -280,10 +282,10 @@
         <h3>
           Nível 1
         </h3>
-        <input type="text" class="create-quizz-input" placeholder="Título do nível">
-        <input type="text" class="create-quizz-input" placeholder="% de acerto mínima">
-        <input type="text" class="create-quizz-input" placeholder="URL da imagem do nível">
-        <input type="text" class="create-quizz-input" placeholder="Descrição do nível">
+        <input type="text" class="quizz-input" placeholder="Título do nível">
+        <input type="text" class="quizz-input" placeholder="% de acerto mínima">
+        <input type="text" class="quizz-input" placeholder="URL da imagem do nível">
+        <input type="text" class="quizz-input" placeholder="Descrição do nível">
       </div>
       <div class="uncollapsed-level">
         <h3>
@@ -297,24 +299,27 @@
         </h3>
         <ion-icon name="create-outline"></ion-icon>
       </div>
-      <button class="btn-create-level">
+      <button class="btn-finalize-quizz">
         Finalizar Quizz
       </button>
     </main>
     <!-- TELA 11 - QUIZZ PRONTO -->
-    <main class="screen11">
+    <main class="screen11 hide">
       <h2>
         Seu quizz está pronto!
       </h2>
       <div class="created-quizz-img">
-        <p class="created-quiz-title">
+        <p class="created-quizz-title">
           O quão Potterhead é você?
         </p>
       </div>
-      <button class="btn-access-quizz"></button>
-      <button class="back-to-home"></button>
+      <button class="btn-access-quizz">
+        Acessar Quizz
+      </button>
+      <button class="back-to-home">
+        Voltar pra home
+      </button>
     </main>
-
     <!-- JAVASCRIPT -->
     <script
       type="module"
