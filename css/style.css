@@ -44,7 +44,7 @@ header {
 main {
   /* Precisa mesmo desse max-width? Não entendi bem pq foi usado,
   tentei tirar para a top-image ficar certinha na tela */
-  max-width: var(--main-max-width); 
+  max-width: var(--main-max-width);
   /* margin: var(--main-top-margin) auto 211px; */
   margin: var(--main-top-margin) var(--main-side-margins) 211px;
 }
@@ -100,13 +100,11 @@ main h2 {
 
 .quizz {
   background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(0, 0, 0, 0.5) 64.58%,
-      #000000 100%
-    ),
-    url("https://rollingstone.uol.com.br/media/_versions/os-simpsons-teoria-final_widelg.jpg");
-  background-size: cover;
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(0, 0, 0, 0.5) 64.58%,
+    #000000 100%
+  );
   width: 340px;
   height: 181px;
   border-radius: 5px;
@@ -115,6 +113,12 @@ main h2 {
   line-height: 22px;
   color: #ffffff;
   position: relative;
+}
+
+.quizz img {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
 }
 
 .quizz-title {
@@ -363,7 +367,8 @@ main h2 {
   color: #fff5f4;
 }
 
-/*.buttons*/ .back-to-home {
+/*.buttons*/
+.back-to-home {
   width: 219.64px;
   height: 44px;
   font-size: 21px;
@@ -391,7 +396,7 @@ main.screen11 {
 .screen8 h2,
 .screen9 h2,
 .screen10 h2,
-.screen11 h2{
+.screen11 h2 {
   font-weight: 700;
   font-size: 23px;
   line-height: 27px;
@@ -400,7 +405,7 @@ main.screen11 {
 }
 
 .create-quizz-box {
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
   width: 100%;
   padding: 21px 20px 24px 16px;
@@ -408,14 +413,14 @@ main.screen11 {
 }
 
 .quizz-input {
-  background: #FFFFFF;
-  border: 1px solid #D1D1D1;
+  background: #ffffff;
+  border: 1px solid #d1d1d1;
   border-radius: 5px;
   height: 46px;
   width: 100%; /* ver se isso não vai sobrepor o padding de fora*/
   font-size: 19px;
   line-height: 22px;
-  color: #BABABA;
+  color: #bababa;
   font-family: inherit; /* verificar se deu certo */
   font-style: italic;
   margin-bottom: 9px;
@@ -431,8 +436,8 @@ main.screen11 {
 }
 
 .btn-create-questions {
-  background: #EC362D;
-  color: #FFF5F4;
+  background: #ec362d;
+  color: #fff5f4;
   border-radius: 15px;
   width: 368.86px;
   height: 54px;
@@ -449,7 +454,7 @@ main.screen11 {
 /* TELA 9 - CRIANDO PERGUNTAS */
 
 .screen9 .create-question-box {
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
   width: 100%;
   padding: 21px 20px 5px 16px;
@@ -476,7 +481,7 @@ h3 {
 .uncollapsed-level {
   width: 100%;
   height: 74px;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
   display: flex;
   justify-content: space-between;
@@ -495,8 +500,8 @@ h3 {
   margin: 81px auto 0;
   width: 353.91px;
   height: 54px;
-  background: #EC362D;
-  color: #FFF5F4;
+  background: #ec362d;
+  color: #fff5f4;
   border-radius: 15px;
   border: none;
   font-size: 21px;
@@ -510,7 +515,7 @@ h3 {
 /* TELA 10 - CRIANDO NÍVEIS */
 
 .screen10 .create-level-box {
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
   width: 100%;
   padding: 21px 20px 19px 16px;
@@ -518,7 +523,7 @@ h3 {
 }
 
 .btn-finalize-quizz {
-  background: #EC362D;
+  background: #ec362d;
   color: #fff5f4;
   border-radius: 15px;
   width: 324px;
@@ -538,7 +543,13 @@ h3 {
 .created-quizz-img {
   width: 500px;
   height: 266px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url("../images/created-quizz.png");
+  background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(0, 0, 0, 0.5) 65.62%,
+      rgba(0, 0, 0, 0.8) 100%
+    ),
+    url("../images/created-quizz.png");
   background-size: cover;
   border-radius: 5px;
   position: relative;
@@ -548,7 +559,7 @@ h3 {
 .created-quizz-title {
   font-size: 23px;
   line-height: 27px;
-  color: #FFFFFF;
+  color: #ffffff;
   width: 90.8%; /*não sei se funciona */
   bottom: 9px;
   position: absolute;
@@ -559,7 +570,7 @@ h3 {
 .btn-access-quizz {
   width: 220.32px;
   height: 44px;
-  background: #EC362D;
+  background: #ec362d;
   border-radius: 15px;
   border: none;
   margin-bottom: 20px;
@@ -569,7 +580,7 @@ h3 {
   align-items: center;
   justify-content: center;
   color: #fff5f4;
-  font-family:inherit;
+  font-family: inherit;
 }
 
 .screen11 button {
