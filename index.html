@@ -20,7 +20,9 @@
     <main class="screen1">
       <section class="no-quizz">
         <p>Você não criou nenhum Quizz ainda :(</p>
-        <button class="btn-create-quizz">Criar Quizz</button>
+        <button class="btn-create-quizz" onclick="toCreateQuizz()">
+          Criar Quizz
+        </button>
       </section>
       <section>
         <h2>Todos os Quizzes</h2>
@@ -57,7 +59,7 @@
       <section class="my-quizzes">
         <div class="my-quizzes-top">
           <h2>Seus quizzes</h2>
-          <ion-icon name="add-circle"></ion-icon>
+          <ion-icon name="add-circle" onclick="toCreateQuizz()"></ion-icon>
         </div>
         <div class="my-quizzes-container">
           <div class="my-quizz">
@@ -96,11 +98,11 @@
     </main>
     <!-- TELAS 3/4/5/6/7 - LISTA DE QUIZZES-->
     <main class="screen3-7 hide">
-      <div class="top-image">
+      <!-- <div class="top-image">
         <h1>O quão Potterhead é você?</h1>
       </div>
       <section class="question">
-        <div class="question-box">
+         <div class="question-box">
           <div class="question-box-top">
             <h1>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</h1>
           </div>
@@ -209,7 +211,7 @@
           <div><button class="restart">Reiniciar Quizz</button></div>
           <div><button class="back-to-home">Voltar para home</button></div>
         </div>
-      </section>
+      </section>-->
     </main>
     <!-- TELA 8 - CRIANDO QUIZZ -->
     <main class="screen8 hide">
@@ -217,26 +219,26 @@
       <div class="create-quizz-box">
         <input
           type="text"
-          class="quizz-input"
+          class="quizz-input title"
           placeholder="Título do seu quizz"
         />
         <input
           type="text"
-          class="quizz-input"
+          class="quizz-input url"
           placeholder="URL da imagem do seu quizz"
         />
         <input
           type="text"
-          class="quizz-input"
+          class="quizz-input num-answers"
           placeholder="Quantidade de perguntas do quizz"
         />
         <input
           type="text"
-          class="quizz-input"
+          class="quizz-input num-levels"
           placeholder="Quantidade de níveis do quizz"
         />
       </div>
-      <button class="btn-create-questions">
+      <button class="btn-create-questions" onclick="toCreateQuizzValidation()">
         Prosseguir pra criar perguntas
       </button>
     </main>
