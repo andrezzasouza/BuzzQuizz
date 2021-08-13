@@ -353,6 +353,6 @@ function toCreateLevelsValidation() {
 }
 
 function openLevel(closedLevel) {
-
+  // FALTA FAZER O MENU ABRIR E FECHAR
 }
 
