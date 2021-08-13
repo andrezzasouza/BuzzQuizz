@@ -198,3 +198,54 @@ function toCreateQuestions() {
 
 
 /* COMENTÁRIO PLACEHOLDER */
+
+/*-------------CRIAR UM NÍVEL-------------------*/
+
+function toCreateLevels() {
+  const screen9 = document.querySelector(".screen1");
+  screen9.classList.add("hide");
+  const screen10 = document.querySelector(".screen8");
+  screen10.classList.remove("hide");
+}
+
+function toCreateLevelsValidation() {
+  let levelValidationNumber = 0;
+  let levelTitleInput = document.querySelector(".level-title").value;
+  let levelPercentageInput = parseInt(
+    document.querySelector(".level-percentage").value
+  );
+  let levelUrlInput = document.querySelector(".level-url").value;
+  // falta criar a condição da URL
+  let levelDescriptionInput = document.querySelector(".level-description").value;
+
+  if (levelTitleInput.length >= 10) {
+    levelValidationNumber++
+  } else {
+    alert("O título deve ter pelo menos 10 caracteres.");
+  }
+
+  if (levelPercentageInput >= 0 && levelPercentageInput <= 100) {
+    levelValidationNumber++
+  } else {
+    // colocar algo que impeça que a pessoa coloque um texto ou outro valor inválido e funcione?
+    alert("O valor da porcentagem deve estar entre 0 e 100.");
+  }
+
+  if (levelDescriptionInput.length >= 30) {
+    levelValidationNumber++
+  } else {
+    alert("A descrição deve ter 30 ou mais caracteres.");
+  }
+
+  if (levelValidationNumber >= 3) {
+    toFinalizeQuizz();
+  } else {
+    alert("Validação errada!")
+  }
+
+}
+
+function openLevel(closedLevel) {
+
+}
+
