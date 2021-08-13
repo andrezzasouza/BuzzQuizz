@@ -243,32 +243,36 @@
       </button>
     </main>
     <!--TELA 9 - CRIANDO PERGUNTAS -->
-    <main class="screen9 hide">
+    <main class="screen9">
       <h2>Crie suas perguntas</h2>
       <div class="create-question-box">
-        <div>
+        <div class="question-section">
           <h3>Pergunta 1</h3>
           <input
             type="text"
-            class="quizz-input"
+            class="quizz-input question-text"
             placeholder="Texto da pergunta"
           />
           <input
             type="text"
-            class="quizz-input"
+            class="quizz-input question-bg-color"
             placeholder="Cor de fundo da pergunta"
           />
         </div>
-        <div>
+        <div class="correct-answer-section">
           <h3>Resposta correta</h3>
           <input
             type="text"
-            class="quizz-input"
+            class="quizz-input correct-answer"
             placeholder="Resposta correta"
           />
-          <input type="text" class="quizz-input" placeholder="URL da imagem" />
+          <input 
+            type="text"
+            class="quizz-input image-url"
+            placeholder="URL da imagem"
+          />
         </div>
-        <div>
+        <div class="incorrect-answer-section">
           <h3>Respostas incorretas</h3>
           <input
             type="text"
@@ -314,7 +318,7 @@
         <h3>Pergunta 3</h3>
         <ion-icon name="create-outline"></ion-icon>
       </div>
-      <button class="btn-create-levels">Prosseguir pra criar níveis</button>
+      <button class="btn-create-levels" onclick="validateQuestionsCreation(this)">Prosseguir pra criar níveis</button>
     </main>
     <!-- TELA 10 - CRIANDO NÍVEIS -->
     <main class="screen10">
