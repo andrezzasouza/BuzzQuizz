@@ -91,13 +91,13 @@ function quizzSelected(response) {
 
   for (let j = 0; j < questions.length; j++) {
     choices += `<div class="question-box"><div class="question-box-top">
-    <h1>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</h1>
+    <h1>${questions[j].title}</h1>
   </div><div class="question-box-choices">`;
     for (let k = 0; k < questions[j].answers.length; k++) {
       choices += `
         <div class="choices choices${j}${k}">
-      <img src="./images/Hogwaarts.jpg" alt="castle" />
-      <p>Castelo</p>
+      <img src=${questions[j].answers[k].image} alt="castle" />
+      <p>${questions[j].answers[k].text}</p>
     </div>`;
     }
     choices += `</div></div>`;
