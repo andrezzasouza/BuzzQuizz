@@ -85,11 +85,32 @@ function quizzSelected(response) {
   const title = topImage.querySelector(".title");
   title.innerHTML = `${response.data.title}`;
 
+  let choices = "";
+
+  console.log(questions[1].answers.length, "arraaaaaaaaay");
+
+  for (let j = 0; j < questions.length; j++) {
+    choices += `<div class="question-box"><div class="question-box-top">
+    <h1>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</h1>
+  </div><div class="question-box-choices">`;
+    for (let k = 0; k < questions[j].answers.length; k++) {
+      choices += `
+        <div class="choices choices${j}${k}">
+      <img src="./images/Hogwaarts.jpg" alt="castle" />
+      <p>Castelo</p>
+    </div>`;
+    }
+    choices += `</div></div>`;
+  }
+
+  console.log(choices, "choicessssss");
+
   const question = document.querySelector(".question");
   console.log(question);
-  question.innerHTML = `
-  RENDERIZAR O QUIZZ AQUI
-  `;
+
+  //for (let i = 0; i < questions.length; i++) {
+  question.innerHTML += `${choices}`;
+  //}
 }
 
 /*-------------CRIAR UM QUIZZ-------------------*/
