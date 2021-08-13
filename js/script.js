@@ -87,8 +87,6 @@ function quizzSelected(response) {
 
   let choices = "";
 
-  console.log(questions[1].answers.length, "arraaaaaaaaay");
-
   for (let j = 0; j < questions.length; j++) {
     choices += `<div class="question-box"><div class="question-box-top">
     <h1>${questions[j].title}</h1>
@@ -103,14 +101,8 @@ function quizzSelected(response) {
     choices += `</div></div>`;
   }
 
-  console.log(choices, "choicessssss");
-
   const question = document.querySelector(".question");
-  console.log(question);
-
-  //for (let i = 0; i < questions.length; i++) {
   question.innerHTML += `${choices}`;
-  //}
 }
 
 /*-------------CRIAR UM QUIZZ-------------------*/
