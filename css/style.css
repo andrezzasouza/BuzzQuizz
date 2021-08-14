@@ -520,7 +520,11 @@ h3 {
 .level-title-container {
   display: flex;
   justify-content: space-between;
-  padding: 21px 20px 0 16px;
+  
+}
+
+.collapsed-level {
+  padding: 27px 20px 0 17px;
 }
 
 .collapsed-level ion-icon {
@@ -559,8 +563,7 @@ h3 {
       rgba(255, 255, 255, 0) 0%,
       rgba(0, 0, 0, 0.5) 65.62%,
       rgba(0, 0, 0, 0.8) 100%
-    ),
-    url("../images/created-quizz.png");
+    );
   background-size: cover;
   border-radius: 5px;
   position: relative;

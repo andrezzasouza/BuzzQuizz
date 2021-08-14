@@ -118,15 +118,18 @@ function toCreateQuizz() {
 }
 
 let quizzLevelsInput = 0;
+let quizzTitleInput = "";
+let quizzUrlInput = "";
+let quizzAnswersInput = "";
 
 function toCreateQuizzValidation() {
   let validationNumber = 0;
-  let quizzTitleInput = document.querySelector(".title").value;
-  let quizzUrlInput = document.querySelector(".url").value;
+  quizzTitleInput = document.querySelector(".title").value;
+  quizzUrlInput = document.querySelector(".url").value;
   quizzAnswersInput = parseInt(
     document.querySelector(".num-answers").value
   );
-  let quizzLevelsInput = parseInt(document.querySelector(".num-levels").value);
+  quizzLevelsInput = parseInt(document.querySelector(".num-levels").value);
 
   if (quizzTitleInput.length >= 20 && quizzTitleInput.length <= 65) {
     validationNumber++;
@@ -368,8 +371,7 @@ function toCreateLevelsValidation() {
   );
   let levelUrlInput = document.querySelector(".level-url").value;
   // falta criar a condição da URL
-  let levelDescriptionInput =
-    document.querySelector(".level-description").value;
+  let levelDescriptionInput = document.querySelector(".level-description").value;
 
   if (levelTitleInput.length >= 10) {
     levelValidationNumber++;
@@ -404,12 +406,9 @@ function toggleLevel(currentLevel) {
   console.log("CL", currentLevel)
   console.log("TL", togglingLevel)
   
-
-  // if (togglingLevel !== null) {
-    togglingLevel.querySelector(".level-title-container").classList.toggle("uncollapsed-level");
-    togglingLevel.querySelector(".level-title-container").classList.toggle("collapsed-level");
-    togglingLevel.querySelector(".level-input-container").classList.toggle("hide");
-  // } else {}
+  togglingLevel.querySelector(".level-title-container").classList.toggle("uncollapsed-level");
+  togglingLevel.querySelector(".level-title-container").classList.toggle("collapsed-level");
+  togglingLevel.querySelector(".level-input-container").classList.toggle("hide");
 }
 
 /*-------------FINALIZA CRIAÇÃO DO QUIZZ-------------------*/
@@ -422,14 +421,16 @@ function renderFinalizedQuizz() {
   </div>
   <button class="btn-access-quizz" onclick="viewCreatedQuizz();">Acessar Quizz</button>
   <button class="back-to-home" onclick="returnToHome();">Voltar pra home</button>`
-  document.querySelector(".created-quizz-img").style.backgroundImage = "url('${quizzUrlInput}')";
+  document.querySelector(".screen11").innerHTML = innerFinalizedScreen;
+  document.querySelector(".created-quizz-img").style.backgroundImage = `url("${quizzUrlInput}")`;
 }
 
-function toFinalizeQuizz() {
+function toFinalizeQuizz(response) {
   const screen10 = document.querySelector(".screen10");
   screen10.classList.add("hide");
   const screen11 = document.querySelector(".screen11");
   screen11.classList.remove("hide");
+  console.log(response)
   renderFinalizedQuizz();
 }
 
@@ -454,4 +455,73 @@ function viewCreatedQuizz() {
   // ESCREVER ABERTURA DE QUIZZ
 }
 
+// falta pegar os valores das perguntas e níveis
 
+quizzData = {
+	title: quizzTitleInput,
+	image: quizzUrlInput,
+	questions: [
+		{
+			title: "Título da pergunta 1",
+			color: "#123456",
+			answers: [
+				{
+					text: "Texto da resposta 1",
+					image: "https://http.cat/411.jpg",
+					isCorrectAnswer: true
+				},
+				{
+					text: "Texto da resposta 2",
+					image: "https://http.cat/412.jpg",
+					isCorrectAnswer: false
+				}
+			]
+		},
+		{
+			title: "Título da pergunta 2",
+			color: "#123456",
+			answers: [
+				{
+					text: "Texto da resposta 1",
+					image: "https://http.cat/411.jpg",
+					isCorrectAnswer: true
+				},
+				{
+					text: "Texto da resposta 2",
+					image: "https://http.cat/412.jpg",
+					isCorrectAnswer: false
+				}
+			]
+		},
+		{
+			title: "Título da pergunta 3",
+			color: "#123456",
+			answers: [
+				{
+					text: "Texto da resposta 1",
+					image: "https://http.cat/411.jpg",
+					isCorrectAnswer: true
+				},
+				{
+					text: "Texto da resposta 2",
+					image: "https://http.cat/412.jpg",
+					isCorrectAnswer: false
+				}
+			]
+		}
+	],
+	levels: [
+		{
+			title: "Título do nível 1",
+			image: "https://http.cat/411.jpg",
+			text: "Descrição do nível 1",
+			minValue: 0
+		},
+		{
+			title: "Título do nível 2",
+			image: "https://http.cat/412.jpg",
+			text: "Descrição do nível 2",
+			minValue: 50
+		}
+	]
+}
