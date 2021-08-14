@@ -281,8 +281,8 @@ function renderLevels () {
 
   for (let i = 1; i <= 3 /*quizzLevelsInput*/; i++) {
     if (i === 1) {
-      innerLevelInputs += `<div class="create-level-box" onclick="toggleLevel(this);">
-        <div class="level-title-container collapsed-level">
+      innerLevelInputs += `<div class="create-level-box">
+        <div class="level-title-container collapsed-level" onclick="toggleLevel(this);">
           <h3>Nível 1</h3>
           <ion-icon name="create-outline"></ion-icon>
         </div>
@@ -310,7 +310,8 @@ function renderLevels () {
         </div>
       </div>`
     } else {
-      innerLevelInputs += `<div class="level-title-container uncollapsed-level" onclick="toggleLevel(this);">
+      innerLevelInputs += `<div class="create-level-box">
+      <div class="level-title-container uncollapsed-level" onclick="toggleLevel(this);">
       <h3>Nível ${i}</h3>
       <ion-icon name="create-outline"></ion-icon>
       </div>
@@ -335,10 +336,14 @@ function renderLevels () {
             class="quizz-input level-description"
             placeholder="Descrição do nível"
           />
-        </div>`
+        </div></div>`
     }
   }
-  document.querySelector(".screen10").innerHTML = innerLevelInputs
+
+  const insertButton = `<button class="btn-finalize-quizz" onclick="toCreateLevelsValidation();">
+      Finalizar Quizz
+    </button>`
+  document.querySelector(".screen10").innerHTML = innerLevelInputs + insertButton
 }
 
 function toCreateLevels() {
@@ -392,25 +397,24 @@ function toCreateLevelsValidation() {
 function toggleLevel(currentLevel) {
 
   //Adicionar uma condição para que funcione quando o nível estiver fechado e o resultado der null
-  const togglingLevel = currentLevel.querySelector(".level-title-container");
-  const showingLevel = currentLevel.querySelector(".level-input-container");
+  const togglingLevel = currentLevel.parentNode;
   console.log("CL", currentLevel)
   console.log("TL", togglingLevel)
-  console.log("SL", showingLevel)
   
 
-  if (togglingLevel !== null) {
-    togglingLevel.classList.toggle("uncollapsed-level");
-    togglingLevel.classList.toggle("collapsed-level");
-    currentLevel.querySelector(".level-input-container").classList.toggle("hide");
-  } else {
-    showingLevel.classList.toggle("hide");
-  }
+  // if (togglingLevel !== null) {
+    togglingLevel.querySelector(".level-title-container").classList.toggle("uncollapsed-level");
+    togglingLevel.querySelector(".level-title-container").classList.toggle("collapsed-level");
+    togglingLevel.querySelector(".level-input-container").classList.toggle("hide");
+  // } else {}
 }
 
 /*-------------FINALIZA CRIAÇÃO DO QUIZZ-------------------*/
 
 function toFinalizeQuizz() {
- //PREENCHER FUNÇÃO
+  const screen10 = document.querySelector(".screen10");
+  screen10.classList.add("hide");
+  const screen11 = document.querySelector(".screen11");
+  screen11.classList.remove("hide");
 }
 
