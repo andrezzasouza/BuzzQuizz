@@ -114,11 +114,13 @@ function toCreateQuizz() {
   screen8.classList.remove("hide");
 }
 
+let quizzLevelsInput = 0;
+
 function toCreateQuizzValidation() {
   let validationNumber = 0;
   let quizzTitleInput = document.querySelector(".title").value;
   let quizzUrlInput = document.querySelector(".url").value;
-  let quizzAnswersInput = parseInt(
+  quizzAnswersInput = parseInt(
     document.querySelector(".num-answers").value
   );
   let quizzLevelsInput = parseInt(document.querySelector(".num-levels").value);
@@ -271,12 +273,84 @@ function isValidQuestionSection(questionSectionElement) {
 
 /*-------------CRIAR UM NÍVEL-------------------*/
 
-function toCreateLevels() {
-  const screen9 = document.querySelector(".screen1");
-  screen9.classList.add("hide");
-  const screen10 = document.querySelector(".screen8");
-  screen10.classList.remove("hide");
+
+toCreateLevels();
+
+function renderLevels () {
+  let innerLevelInputs = "<h2>Agora, decida os níveis</h2>";
+
+  for (let i = 1; i <= 3 /*quizzLevelsInput*/; i++) {
+    if (i === 1) {
+      innerLevelInputs += `<div class="create-level-box" onclick="toggleLevel(this);">
+        <div class="level-title-container collapsed-level">
+          <h3>Nível 1</h3>
+          <ion-icon name="create-outline"></ion-icon>
+        </div>
+        <div class="level-input-container">
+          <input
+            type="text"
+            class="quizz-input level-title"
+            placeholder="Título do nível"
+          />
+          <input
+            type="text"
+            class="quizz-input level-percentage"
+            placeholder="% de acerto mínima"
+          />
+          <input
+            type="text"
+            class="quizz-input level-url"
+            placeholder="URL da imagem do nível"
+          />
+          <input
+            type="text"
+            class="quizz-input level-description"
+            placeholder="Descrição do nível"
+          />
+        </div>
+      </div>`
+    } else {
+      innerLevelInputs += `<div class="level-title-container uncollapsed-level" onclick="toggleLevel(this);">
+      <h3>Nível ${i}</h3>
+      <ion-icon name="create-outline"></ion-icon>
+      </div>
+      <div class="level-input-container hide">
+          <input
+            type="text"
+            class="quizz-input level-title"
+            placeholder="Título do nível"
+          />
+          <input
+            type="text"
+            class="quizz-input level-percentage"
+            placeholder="% de acerto mínima"
+          />
+          <input
+            type="text"
+            class="quizz-input level-url"
+            placeholder="URL da imagem do nível"
+          />
+          <input
+            type="text"
+            class="quizz-input level-description"
+            placeholder="Descrição do nível"
+          />
+        </div>`
+    }
+  }
+  document.querySelector(".screen10").innerHTML = innerLevelInputs
 }
+
+function toCreateLevels() {
+  const screen9 = document.querySelector(".screen9");
+  screen9.classList.add("hide");
+  const screen10 = document.querySelector(".screen10");
+  screen10.classList.remove("hide");
+  renderLevels();
+}
+
+// Usar um .firstchild pra deixar o primeiro aberto por padrão?
+// O comportamento evita que todos os níveis estejam fechados? É obrigatório que um sempre esteja aberto ou não?
 
 function toCreateLevelsValidation() {
   let levelValidationNumber = 0;
@@ -315,6 +389,28 @@ function toCreateLevelsValidation() {
   }
 }
 
-function openLevel(closedLevel) {
-  // FALTA FAZER O MENU ABRIR E FECHAR
+function toggleLevel(currentLevel) {
+
+  //Adicionar uma condição para que funcione quando o nível estiver fechado e o resultado der null
+  const togglingLevel = currentLevel.querySelector(".level-title-container");
+  const showingLevel = currentLevel.querySelector(".level-input-container");
+  console.log("CL", currentLevel)
+  console.log("TL", togglingLevel)
+  console.log("SL", showingLevel)
+  
+
+  if (togglingLevel !== null) {
+    togglingLevel.classList.toggle("uncollapsed-level");
+    togglingLevel.classList.toggle("collapsed-level");
+    currentLevel.querySelector(".level-input-container").classList.toggle("hide");
+  } else {
+    showingLevel.classList.toggle("hide");
+  }
 }
+
+/*-------------FINALIZA CRIAÇÃO DO QUIZZ-------------------*/
+
+function toFinalizeQuizz() {
+ //PREENCHER FUNÇÃO
+}
+

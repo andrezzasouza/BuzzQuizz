@@ -108,6 +108,7 @@ main h2 {
   color: #ffffff;
   position: relative;
   background-size: 100% 100%;
+  cursor: pointer;
 }
 
 /* .quizz img {
@@ -513,8 +514,23 @@ h3 {
   background: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
   width: 100%;
-  padding: 21px 20px 19px 16px;
   margin: 36px 0 2px;
+}
+
+.level-title-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 21px 20px 0 16px;
+}
+
+.collapsed-level ion-icon {
+  width: 26px;
+  height: 23px;
+  display: none;
+}
+
+.level-input-container {
+  padding: 0px 20px 19px 16px;
 }
 
 .btn-finalize-quizz {
