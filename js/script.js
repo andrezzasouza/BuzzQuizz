@@ -309,7 +309,7 @@ function renderLevels() {
           />
           <input
             type="text"
-            class="quizz-input level-percentage"
+            class="quizz-input level-percentage${i}"
             placeholder="% de acerto mínima"
           />
           <input
@@ -319,7 +319,7 @@ function renderLevels() {
           />
           <input
             type="text"
-            class="quizz-input level-description"
+            class="quizz-input level-description${i}"
             placeholder="Descrição do nível"
           />
         </div>
@@ -338,7 +338,7 @@ function renderLevels() {
           />
           <input
             type="text"
-            class="quizz-input level-percentage"
+            class="quizz-input level-percentage${i}"
             placeholder="% de acerto mínima"
           />
           <input
@@ -348,7 +348,7 @@ function renderLevels() {
           />
           <input
             type="text"
-            class="quizz-input level-description"
+            class="quizz-input level-description${i}"
             placeholder="Descrição do nível"
           />
         </div></div>`;
@@ -375,41 +375,48 @@ function toCreateLevels() {
 
 function toCreateLevelsValidation() {
   let levelValidationNumber = 0;
-  let levelPercentageInput = parseInt(
-    document.querySelector(".level-percentage").value
-  );
   let levelUrlInput = document.querySelector(".level-url").value;
   // falta criar a condição da URL
-  let levelDescriptionInput =
-    document.querySelector(".level-description").value;
-
+  let minZero = 0;
 
   for (let i = 1; i <= 3 /*quizzLevelsInput*/; i++) {
-    let levelValidation = document.querySelector(`.level-title${i}`).value;
-    if (levelValidation.length >=10) {
+    let levelTitleInput= document.querySelector(`.level-title${i}`).value;
+    let levelPercentageInput = parseInt(
+      document.querySelector(`.level-percentage${i}`).value
+    );
+    let levelDescriptionInput = document.querySelector(`.level-description${i}`).value;
+
+    if (levelTitleInput.length >=10) {
       levelValidationNumber++;
       console.log("validou 1 título");
     } else {
       alert("O título deve ter pelo menos 10 caracteres.")
     }
 
+    if (levelPercentageInput >= 0 && levelPercentageInput <= 100)/*validar se pelo menos um deles é 0*/ {
+      if (levelPercentageInput === 0) {
+        minZero++
+      }
+      
+    } else {
+      // colocar algo que impeça que a pessoa coloque um texto ou outro valor inválido e funcione?
+      alert("O valor da porcentagem deve estar entre 0 e 100.");
+    }
 
+    if (levelDescriptionInput.length >= 30) {
+      levelValidationNumber++;
+    } else {
+      alert("A descrição deve ter 30 ou mais caracteres.");
+    }
   }
 
-  if (levelPercentageInput >= 0 && levelPercentageInput <= 100) {
-    levelValidationNumber++;
+  if (minZero > 0) {
+    levelValidationNumber +=3 /*quizzLevelsInput*/;
   } else {
-    // colocar algo que impeça que a pessoa coloque um texto ou outro valor inválido e funcione?
-    alert("O valor da porcentagem deve estar entre 0 e 100.");
+    alert("O percentual mínimo de pelo menos 1 nível deve ser 0")
   }
 
-  if (levelDescriptionInput.length >= 30) {
-    levelValidationNumber++;
-  } else {
-    alert("A descrição deve ter 30 ou mais caracteres.");
-  }
-
-  if (levelValidationNumber >= 3) {
+  if (levelValidationNumber >= (3 * 3 /*quizzLevelsInput*/)) {
     toFinalizeQuizz();
   } else {
     alert("Validação errada!");
@@ -481,76 +488,6 @@ function viewCreatedQuizz() {
 
 // falta pegar os valores das perguntas e níveis
 
-<<<<<<< HEAD
-quizzData = {
-  title: quizzTitleInput,
-  image: quizzUrlInput,
-  questions: [
-    {
-      title: "Título da pergunta 1",
-      color: "#123456",
-      answers: [
-        {
-          text: "Texto da resposta 1",
-          image: "https://http.cat/411.jpg",
-          isCorrectAnswer: true,
-        },
-        {
-          text: "Texto da resposta 2",
-          image: "https://http.cat/412.jpg",
-          isCorrectAnswer: false,
-        },
-      ],
-    },
-    {
-      title: "Título da pergunta 2",
-      color: "#123456",
-      answers: [
-        {
-          text: "Texto da resposta 1",
-          image: "https://http.cat/411.jpg",
-          isCorrectAnswer: true,
-        },
-        {
-          text: "Texto da resposta 2",
-          image: "https://http.cat/412.jpg",
-          isCorrectAnswer: false,
-        },
-      ],
-    },
-    {
-      title: "Título da pergunta 3",
-      color: "#123456",
-      answers: [
-        {
-          text: "Texto da resposta 1",
-          image: "https://http.cat/411.jpg",
-          isCorrectAnswer: true,
-        },
-        {
-          text: "Texto da resposta 2",
-          image: "https://http.cat/412.jpg",
-          isCorrectAnswer: false,
-        },
-      ],
-    },
-  ],
-  levels: [
-    {
-      title: "Título do nível 1",
-      image: "https://http.cat/411.jpg",
-      text: "Descrição do nível 1",
-      minValue: 0,
-    },
-    {
-      title: "Título do nível 2",
-      image: "https://http.cat/412.jpg",
-      text: "Descrição do nível 2",
-      minValue: 50,
-    },
-  ],
-};
-=======
 // quizzData = {
 // 	title: quizzTitleInput,
 // 	image: quizzUrlInput,
@@ -619,4 +556,3 @@ quizzData = {
 // 		}
 // 	]
 // }
->>>>>>> 32f9a9e2430aece6b7587f69e8fcc730b07adff9
