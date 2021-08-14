@@ -148,7 +148,6 @@ function selectAnswer(answerDivElement) {
     // Realiza o scroll na caixa de perguntas 
     console.log(answerBox.parentNode.nextSibling)
     answerBox.parentNode.nextSibling.scrollIntoView({ behavior: 'smooth' })
-
   }, 2000)
 
 }
@@ -342,7 +341,7 @@ function renderLevels() {
           />
           <input
             type="text"
-            class="quizz-input level-percentage"
+            class="quizz-input level-percentage${i}"
             placeholder="% de acerto mínima"
           />
           <input
@@ -352,7 +351,7 @@ function renderLevels() {
           />
           <input
             type="text"
-            class="quizz-input level-description"
+            class="quizz-input level-description${i}"
             placeholder="Descrição do nível"
           />
         </div>
@@ -371,7 +370,7 @@ function renderLevels() {
           />
           <input
             type="text"
-            class="quizz-input level-percentage"
+            class="quizz-input level-percentage${i}"
             placeholder="% de acerto mínima"
           />
           <input
@@ -381,7 +380,7 @@ function renderLevels() {
           />
           <input
             type="text"
-            class="quizz-input level-description"
+            class="quizz-input level-description${i}"
             placeholder="Descrição do nível"
           />
         </div></div>`;
@@ -408,41 +407,48 @@ function toCreateLevels() {
 
 function toCreateLevelsValidation() {
   let levelValidationNumber = 0;
-  let levelPercentageInput = parseInt(
-    document.querySelector(".level-percentage").value
-  );
   let levelUrlInput = document.querySelector(".level-url").value;
   // falta criar a condição da URL
-  let levelDescriptionInput =
-    document.querySelector(".level-description").value;
-
+  let minZero = 0;
 
   for (let i = 1; i <= 3 /*quizzLevelsInput*/; i++) {
-    let levelValidation = document.querySelector(`.level-title${i}`).value;
-    if (levelValidation.length >=10) {
+    let levelTitleInput= document.querySelector(`.level-title${i}`).value;
+    let levelPercentageInput = parseInt(
+      document.querySelector(`.level-percentage${i}`).value
+    );
+    let levelDescriptionInput = document.querySelector(`.level-description${i}`).value;
+
+    if (levelTitleInput.length >=10) {
       levelValidationNumber++;
       console.log("validou 1 título");
     } else {
       alert("O título deve ter pelo menos 10 caracteres.")
     }
 
+    if (levelPercentageInput >= 0 && levelPercentageInput <= 100)/*validar se pelo menos um deles é 0*/ {
+      if (levelPercentageInput === 0) {
+        minZero++
+      }
+      
+    } else {
+      // colocar algo que impeça que a pessoa coloque um texto ou outro valor inválido e funcione?
+      alert("O valor da porcentagem deve estar entre 0 e 100.");
+    }
 
+    if (levelDescriptionInput.length >= 30) {
+      levelValidationNumber++;
+    } else {
+      alert("A descrição deve ter 30 ou mais caracteres.");
+    }
   }
 
-  if (levelPercentageInput >= 0 && levelPercentageInput <= 100) {
-    levelValidationNumber++;
+  if (minZero > 0) {
+    levelValidationNumber +=3 /*quizzLevelsInput*/;
   } else {
-    // colocar algo que impeça que a pessoa coloque um texto ou outro valor inválido e funcione?
-    alert("O valor da porcentagem deve estar entre 0 e 100.");
+    alert("O percentual mínimo de pelo menos 1 nível deve ser 0")
   }
 
-  if (levelDescriptionInput.length >= 30) {
-    levelValidationNumber++;
-  } else {
-    alert("A descrição deve ter 30 ou mais caracteres.");
-  }
-
-  if (levelValidationNumber >= 3) {
+  if (levelValidationNumber >= (3 * 3 /*quizzLevelsInput*/)) {
     toFinalizeQuizz();
   } else {
     alert("Validação errada!");
@@ -582,3 +588,4 @@ quizzData = {
     },
   ],
 };
+
