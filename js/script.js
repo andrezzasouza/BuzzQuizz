@@ -295,7 +295,7 @@ function renderLevels () {
         <div class="level-input-container">
           <input
             type="text"
-            class="quizz-input level-title"
+            class="quizz-input level-title${i}"
             placeholder="Título do nível"
           />
           <input
@@ -324,7 +324,7 @@ function renderLevels () {
       <div class="level-input-container hide">
           <input
             type="text"
-            class="quizz-input level-title"
+            class="quizz-input level-title${i}"
             placeholder="Título do nível"
           />
           <input
@@ -365,7 +365,6 @@ function toCreateLevels() {
 
 function toCreateLevelsValidation() {
   let levelValidationNumber = 0;
-  let levelTitleInput = document.querySelector(".level-title").value;
   let levelPercentageInput = parseInt(
     document.querySelector(".level-percentage").value
   );
@@ -373,10 +372,17 @@ function toCreateLevelsValidation() {
   // falta criar a condição da URL
   let levelDescriptionInput = document.querySelector(".level-description").value;
 
-  if (levelTitleInput.length >= 10) {
-    levelValidationNumber++;
-  } else {
-    alert("O título deve ter pelo menos 10 caracteres.");
+
+  for (let i = 1; i <= 3 /*quizzLevelsInput*/; i++) {
+    let levelValidation = document.querySelector(`.level-title${i}`).value;
+    if (levelValidation.length >=10) {
+      levelValidationNumber++;
+      console.log("validou 1 título");
+    } else {
+      alert("O título deve ter pelo menos 10 caracteres.")
+    }
+
+
   }
 
   if (levelPercentageInput >= 0 && levelPercentageInput <= 100) {
@@ -440,7 +446,6 @@ function sendQuizzToServer() {
 
   promise.then(toFinalizeQuizz);
   promise.catch(alert("Algo deu errado!"));
-
 }
 
 function returnToHome() {
@@ -457,71 +462,71 @@ function viewCreatedQuizz() {
 
 // falta pegar os valores das perguntas e níveis
 
-quizzData = {
-	title: quizzTitleInput,
-	image: quizzUrlInput,
-	questions: [
-		{
-			title: "Título da pergunta 1",
-			color: "#123456",
-			answers: [
-				{
-					text: "Texto da resposta 1",
-					image: "https://http.cat/411.jpg",
-					isCorrectAnswer: true
-				},
-				{
-					text: "Texto da resposta 2",
-					image: "https://http.cat/412.jpg",
-					isCorrectAnswer: false
-				}
-			]
-		},
-		{
-			title: "Título da pergunta 2",
-			color: "#123456",
-			answers: [
-				{
-					text: "Texto da resposta 1",
-					image: "https://http.cat/411.jpg",
-					isCorrectAnswer: true
-				},
-				{
-					text: "Texto da resposta 2",
-					image: "https://http.cat/412.jpg",
-					isCorrectAnswer: false
-				}
-			]
-		},
-		{
-			title: "Título da pergunta 3",
-			color: "#123456",
-			answers: [
-				{
-					text: "Texto da resposta 1",
-					image: "https://http.cat/411.jpg",
-					isCorrectAnswer: true
-				},
-				{
-					text: "Texto da resposta 2",
-					image: "https://http.cat/412.jpg",
-					isCorrectAnswer: false
-				}
-			]
-		}
-	],
-	levels: [
-		{
-			title: "Título do nível 1",
-			image: "https://http.cat/411.jpg",
-			text: "Descrição do nível 1",
-			minValue: 0
-		},
-		{
-			title: "Título do nível 2",
-			image: "https://http.cat/412.jpg",
-			text: "Descrição do nível 2",
-			minValue: 50
-		}
-	]
-}
+// quizzData = {
+// 	title: quizzTitleInput,
+// 	image: quizzUrlInput,
+// 	questions: [
+// 		{
+// 			title: "Título da pergunta 1",
+// 			color: "#123456",
+// 			answers: [
+// 				{
+// 					text: "Texto da resposta 1",
+// 					image: "https://http.cat/411.jpg",
+// 					isCorrectAnswer: true
+// 				},
+// 				{
+// 					text: "Texto da resposta 2",
+// 					image: "https://http.cat/412.jpg",
+// 					isCorrectAnswer: false
+// 				}
+// 			]
+// 		},
+// 		{
+// 			title: "Título da pergunta 2",
+// 			color: "#123456",
+// 			answers: [
+// 				{
+// 					text: "Texto da resposta 1",
+// 					image: "https://http.cat/411.jpg",
+// 					isCorrectAnswer: true
+// 				},
+// 				{
+// 					text: "Texto da resposta 2",
+// 					image: "https://http.cat/412.jpg",
+// 					isCorrectAnswer: false
+// 				}
+// 			]
+// 		},
+// 		{
+// 			title: "Título da pergunta 3",
+// 			color: "#123456",
+// 			answers: [
+// 				{
+// 					text: "Texto da resposta 1",
+// 					image: "https://http.cat/411.jpg",
+// 					isCorrectAnswer: true
+// 				},
+// 				{
+// 					text: "Texto da resposta 2",
+// 					image: "https://http.cat/412.jpg",
+// 					isCorrectAnswer: false
+// 				}
+// 			]
+// 		}
+// 	],
+// 	levels: [
+// 		{
+// 			title: "Título do nível 1",
+// 			image: "https://http.cat/411.jpg",
+// 			text: "Descrição do nível 1",
+// 			minValue: 0
+// 		},
+// 		{
+// 			title: "Título do nível 2",
+// 			image: "https://http.cat/412.jpg",
+// 			text: "Descrição do nível 2",
+// 			minValue: 50
+// 		}
+// 	]
+// }
