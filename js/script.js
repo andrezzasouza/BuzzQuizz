@@ -240,6 +240,7 @@ function toCreateQuizzValidation() {
   } else {
     alert("Validação errada!");
   }
+  // teste commit
 }
 
 /*-------------CRIAR PERGUNTAS-------------------*/
