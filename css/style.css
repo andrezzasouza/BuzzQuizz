@@ -275,14 +275,14 @@ main h2 {
   font-weight: bold;
   font-size: 20px;
   line-height: 23px;
-  color: #000000;
+  /* color: #000000; */
 }
 
-.choices .wrong {
+.wrong {
   color: #ff4b4b;
 }
 
-.choices .right {
+.right {
   color: #009c22;
 }
 

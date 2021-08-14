@@ -108,16 +108,49 @@ function quizzSelected(response) {
                 </div>
                 <div class="question-box-choices">`;
     for (let k = 0; k < questions[j].answers.length; k++) {
-      choices += `<div class="choices choices${j}${k}">
+      let correctAnswer = 'incorrect-answer'
+      if (questions[j].answers[k].isCorrectAnswer) correctAnswer = 'correct-answer'
+      
+      choices += `<div class="choices ${correctAnswer}" onclick="selectAnswer(this)">
                     <img src=${questions[j].answers[k].image} alt="castle" />
                     <p>${questions[j].answers[k].text}</p>
                   </div>`;
+                  // console.log('É CORRETA!')
+                  // console.log(questions[j].answers[k].isCorrectAnswer)
     }
     choices += `</div>
                 </div>`;
   }
   const question = document.querySelector(".question");
   question.innerHTML += `${choices}`;
+}
+
+function selectAnswer(answerDivElement) {
+  
+  answerDivElement.classList.add('selected-answer')
+
+  const answerBox = answerDivElement.parentNode
+  const allAnswer = answerBox.querySelectorAll('.choices')
+
+  for (const answer of allAnswer) {
+    if (answer.classList.contains('correct-answer')) {
+      answer.classList.add('right')
+    } else {
+      answer.classList.add('wrong')
+    }
+    if (!(answer.classList.contains('selected-answer'))) {
+      answer.classList.add('not')
+    }
+    answer.setAttribute('onclick', '')
+  }
+
+  setTimeout(() => {
+    // Realiza o scroll na caixa de perguntas 
+    console.log(answerBox.parentNode.nextSibling)
+    answerBox.parentNode.nextSibling.scrollIntoView({ behavior: 'smooth' })
+
+  }, 2000)
+
 }
 
 /*-------------CRIAR UM QUIZZ-------------------*/
@@ -289,7 +322,7 @@ function isValidQuestionSection(questionSectionElement) {
 
 /*-------------CRIAR UM NÍVEL-------------------*/
 
-toCreateLevels();
+// toCreateLevels();
 
 function renderLevels() {
   let innerLevelInputs = "<h2>Agora, decida os níveis</h2>";
@@ -481,7 +514,6 @@ function viewCreatedQuizz() {
 
 // falta pegar os valores das perguntas e níveis
 
-<<<<<<< HEAD
 quizzData = {
   title: quizzTitleInput,
   image: quizzUrlInput,
@@ -550,73 +582,3 @@ quizzData = {
     },
   ],
 };
-=======
-// quizzData = {
-// 	title: quizzTitleInput,
-// 	image: quizzUrlInput,
-// 	questions: [
-// 		{
-// 			title: "Título da pergunta 1",
-// 			color: "#123456",
-// 			answers: [
-// 				{
-// 					text: "Texto da resposta 1",
-// 					image: "https://http.cat/411.jpg",
-// 					isCorrectAnswer: true
-// 				},
-// 				{
-// 					text: "Texto da resposta 2",
-// 					image: "https://http.cat/412.jpg",
-// 					isCorrectAnswer: false
-// 				}
-// 			]
-// 		},
-// 		{
-// 			title: "Título da pergunta 2",
-// 			color: "#123456",
-// 			answers: [
-// 				{
-// 					text: "Texto da resposta 1",
-// 					image: "https://http.cat/411.jpg",
-// 					isCorrectAnswer: true
-// 				},
-// 				{
-// 					text: "Texto da resposta 2",
-// 					image: "https://http.cat/412.jpg",
-// 					isCorrectAnswer: false
-// 				}
-// 			]
-// 		},
-// 		{
-// 			title: "Título da pergunta 3",
-// 			color: "#123456",
-// 			answers: [
-// 				{
-// 					text: "Texto da resposta 1",
-// 					image: "https://http.cat/411.jpg",
-// 					isCorrectAnswer: true
-// 				},
-// 				{
-// 					text: "Texto da resposta 2",
-// 					image: "https://http.cat/412.jpg",
-// 					isCorrectAnswer: false
-// 				}
-// 			]
-// 		}
-// 	],
-// 	levels: [
-// 		{
-// 			title: "Título do nível 1",
-// 			image: "https://http.cat/411.jpg",
-// 			text: "Descrição do nível 1",
-// 			minValue: 0
-// 		},
-// 		{
-// 			title: "Título do nível 2",
-// 			image: "https://http.cat/412.jpg",
-// 			text: "Descrição do nível 2",
-// 			minValue: 50
-// 		}
-// 	]
-// }
->>>>>>> 32f9a9e2430aece6b7587f69e8fcc730b07adff9
