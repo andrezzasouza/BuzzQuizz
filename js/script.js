@@ -1,14 +1,17 @@
 /*-------------RENDERIZANDO QUIZZES-------------------*/
 
-const URL_Quizzes =
+const GET_QUIZZES_URL =
   "https://mock-api.bootcamp.respondeai.com.br/api/v3/buzzquizz/quizzes";
+
+const POST_QUIZZES_URL = "https://mock-api.bootcamp.respondeai.com.br/api/v3/buzzquizz/quizzes";
 // Essa variável será usada para deixar as requisições do axios mais semânticas
 // Foi o que o Leandro passou em aula
+// Alterei o formato e o nome quando acrescentei o outro link ;)
 
 getQuizzes();
 
 function getQuizzes() {
-  const promise = axios.get(URL_Quizzes);
+  const promise = axios.get(GET_QUIZZES_URL);
   promise.then(listOfQuizzes);
   promise.catch(() => console.log("Deu algum erro")); // depois explico isso!
 }
@@ -56,7 +59,7 @@ function quizzPage(quizz) {
 
   console.log(quizz);
 
-  const promise = axios.get(`${URL_Quizzes}/${quizz}`);
+  const promise = axios.get(`${GET_QUIZZES_URL}/${quizz}`);
   promise.then(quizzSelected);
   promise.catch(() => console.log("Deu algum erro")); // depois explico isso!
 }
@@ -411,10 +414,41 @@ function toggleLevel(currentLevel) {
 
 /*-------------FINALIZA CRIAÇÃO DO QUIZZ-------------------*/
 
+function renderFinalizedQuizz() {
+  
+  const innerFinalizedScreen = `<h2>Seu quizz está pronto!</h2>
+  <div class="created-quizz-img">
+    <p class="created-quizz-title">${quizzTitleInput}</p>
+  </div>
+  <button class="btn-access-quizz" onclick="viewCreatedQuizz();">Acessar Quizz</button>
+  <button class="back-to-home" onclick="returnToHome();">Voltar pra home</button>`
+  document.querySelector(".created-quizz-img").style.backgroundImage = "url('${quizzUrlInput}')";
+}
+
 function toFinalizeQuizz() {
   const screen10 = document.querySelector(".screen10");
   screen10.classList.add("hide");
   const screen11 = document.querySelector(".screen11");
   screen11.classList.remove("hide");
+  sendQuizzToServer();
+  renderFinalizedQuizz();
 }
+
+function sendQuizzToServer() {
+  let quizzData = {/* preencher */};
+  const promise = axios.post(POST_QUIZZES_URL, quizzData);
+}
+
+function returnToHome() {
+  const screen11 = document.querySelector(".screen11");
+  screen11.classList.add("hide");
+  const screen1 = document.querySelector(".screen1");
+  screen1.classList.remove("hide");
+  getQuizzes();
+}
+
+function viewCreatedQuizz() {
+  // ESCREVER ABERTURA DE QUIZZ
+}
+
 
