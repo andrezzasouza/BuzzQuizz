@@ -3,7 +3,8 @@
 const GET_QUIZZES_URL =
   "https://mock-api.bootcamp.respondeai.com.br/api/v3/buzzquizz/quizzes";
 
-const POST_QUIZZES_URL = "https://mock-api.bootcamp.respondeai.com.br/api/v3/buzzquizz/quizzes";
+const POST_QUIZZES_URL =
+  "https://mock-api.bootcamp.respondeai.com.br/api/v3/buzzquizz/quizzes";
 // Essa variável será usada para deixar as requisições do axios mais semânticas
 // Foi o que o Leandro passou em aula
 // Alterei o formato e o nome quando acrescentei o outro link ;)
@@ -65,7 +66,18 @@ function quizzPage(quizz) {
 }
 
 function quizzSelected(response) {
-  console.log(response.data);
+  console.log(response.data, "objeto");
+  console.log(response.data.questions, "perguntas");
+  console.log(response.data.questions.length, "respostas0");
+
+  for (let i = 0; i < response.data.questions.length; i++) {
+    response.data.questions[i].answers.sort(comparador);
+  }
+
+  function comparador() {
+    return Math.random() - 0.5;
+  }
+
   const questions = response.data.questions;
   console.log(questions);
   /* const levels = response.data.levels;
@@ -92,18 +104,18 @@ function quizzSelected(response) {
 
   for (let j = 0; j < questions.length; j++) {
     choices += `<div class="question-box"><div class="question-box-top">
-    <h1>${questions[j].title}</h1>
-  </div><div class="question-box-choices">`;
+                    <h1>${questions[j].title}</h1>
+                </div>
+                <div class="question-box-choices">`;
     for (let k = 0; k < questions[j].answers.length; k++) {
-      choices += `
-        <div class="choices choices${j}${k}">
-      <img src=${questions[j].answers[k].image} alt="castle" />
-      <p>${questions[j].answers[k].text}</p>
-    </div>`;
+      choices += `<div class="choices choices${j}${k}">
+                    <img src=${questions[j].answers[k].image} alt="castle" />
+                    <p>${questions[j].answers[k].text}</p>
+                  </div>`;
     }
-    choices += `</div></div>`;
+    choices += `</div>
+                </div>`;
   }
-
   const question = document.querySelector(".question");
   question.innerHTML += `${choices}`;
 }
@@ -126,9 +138,7 @@ function toCreateQuizzValidation() {
   let validationNumber = 0;
   quizzTitleInput = document.querySelector(".title").value;
   quizzUrlInput = document.querySelector(".url").value;
-  quizzAnswersInput = parseInt(
-    document.querySelector(".num-answers").value
-  );
+  quizzAnswersInput = parseInt(document.querySelector(".num-answers").value);
   quizzLevelsInput = parseInt(document.querySelector(".num-levels").value);
 
   if (quizzTitleInput.length >= 20 && quizzTitleInput.length <= 65) {
@@ -279,10 +289,9 @@ function isValidQuestionSection(questionSectionElement) {
 
 /*-------------CRIAR UM NÍVEL-------------------*/
 
-
 toCreateLevels();
 
-function renderLevels () {
+function renderLevels() {
   let innerLevelInputs = "<h2>Agora, decida os níveis</h2>";
 
   for (let i = 1; i <= 3 /*quizzLevelsInput*/; i++) {
@@ -314,7 +323,7 @@ function renderLevels () {
             placeholder="Descrição do nível"
           />
         </div>
-      </div>`
+      </div>`;
     } else {
       innerLevelInputs += `<div class="create-level-box">
       <div class="level-title-container uncollapsed-level" onclick="toggleLevel(this);">
@@ -342,14 +351,15 @@ function renderLevels () {
             class="quizz-input level-description"
             placeholder="Descrição do nível"
           />
-        </div></div>`
+        </div></div>`;
     }
   }
 
   const insertButton = `<button class="btn-finalize-quizz" onclick="toCreateLevelsValidation();">
       Finalizar Quizz
-    </button>`
-  document.querySelector(".screen10").innerHTML = innerLevelInputs + insertButton
+    </button>`;
+  document.querySelector(".screen10").innerHTML =
+    innerLevelInputs + insertButton;
 }
 
 function toCreateLevels() {
@@ -371,7 +381,8 @@ function toCreateLevelsValidation() {
   );
   let levelUrlInput = document.querySelector(".level-url").value;
   // falta criar a condição da URL
-  let levelDescriptionInput = document.querySelector(".level-description").value;
+  let levelDescriptionInput =
+    document.querySelector(".level-description").value;
 
   if (levelTitleInput.length >= 10) {
     levelValidationNumber++;
@@ -400,29 +411,35 @@ function toCreateLevelsValidation() {
 }
 
 function toggleLevel(currentLevel) {
-
   //Adicionar uma condição para que funcione quando o nível estiver fechado e o resultado der null
   const togglingLevel = currentLevel.parentNode;
-  console.log("CL", currentLevel)
-  console.log("TL", togglingLevel)
-  
-  togglingLevel.querySelector(".level-title-container").classList.toggle("uncollapsed-level");
-  togglingLevel.querySelector(".level-title-container").classList.toggle("collapsed-level");
-  togglingLevel.querySelector(".level-input-container").classList.toggle("hide");
+  console.log("CL", currentLevel);
+  console.log("TL", togglingLevel);
+
+  togglingLevel
+    .querySelector(".level-title-container")
+    .classList.toggle("uncollapsed-level");
+  togglingLevel
+    .querySelector(".level-title-container")
+    .classList.toggle("collapsed-level");
+  togglingLevel
+    .querySelector(".level-input-container")
+    .classList.toggle("hide");
 }
 
 /*-------------FINALIZA CRIAÇÃO DO QUIZZ-------------------*/
 
 function renderFinalizedQuizz() {
-  
   const innerFinalizedScreen = `<h2>Seu quizz está pronto!</h2>
   <div class="created-quizz-img">
     <p class="created-quizz-title">${quizzTitleInput}</p>
   </div>
   <button class="btn-access-quizz" onclick="viewCreatedQuizz();">Acessar Quizz</button>
-  <button class="back-to-home" onclick="returnToHome();">Voltar pra home</button>`
+  <button class="back-to-home" onclick="returnToHome();">Voltar pra home</button>`;
   document.querySelector(".screen11").innerHTML = innerFinalizedScreen;
-  document.querySelector(".created-quizz-img").style.backgroundImage = `url("${quizzUrlInput}")`;
+  document.querySelector(
+    ".created-quizz-img"
+  ).style.backgroundImage = `url("${quizzUrlInput}")`;
 }
 
 function toFinalizeQuizz(response) {
@@ -430,17 +447,18 @@ function toFinalizeQuizz(response) {
   screen10.classList.add("hide");
   const screen11 = document.querySelector(".screen11");
   screen11.classList.remove("hide");
-  console.log(response)
+  console.log(response);
   renderFinalizedQuizz();
 }
 
 function sendQuizzToServer() {
-  let quizzData = {/* preencher */};
+  let quizzData = {
+    /* preencher */
+  };
   const promise = axios.post(POST_QUIZZES_URL, quizzData);
 
   promise.then(toFinalizeQuizz);
   promise.catch(alert("Algo deu errado!"));
-
 }
 
 function returnToHome() {
@@ -458,70 +476,70 @@ function viewCreatedQuizz() {
 // falta pegar os valores das perguntas e níveis
 
 quizzData = {
-	title: quizzTitleInput,
-	image: quizzUrlInput,
-	questions: [
-		{
-			title: "Título da pergunta 1",
-			color: "#123456",
-			answers: [
-				{
-					text: "Texto da resposta 1",
-					image: "https://http.cat/411.jpg",
-					isCorrectAnswer: true
-				},
-				{
-					text: "Texto da resposta 2",
-					image: "https://http.cat/412.jpg",
-					isCorrectAnswer: false
-				}
-			]
-		},
-		{
-			title: "Título da pergunta 2",
-			color: "#123456",
-			answers: [
-				{
-					text: "Texto da resposta 1",
-					image: "https://http.cat/411.jpg",
-					isCorrectAnswer: true
-				},
-				{
-					text: "Texto da resposta 2",
-					image: "https://http.cat/412.jpg",
-					isCorrectAnswer: false
-				}
-			]
-		},
-		{
-			title: "Título da pergunta 3",
-			color: "#123456",
-			answers: [
-				{
-					text: "Texto da resposta 1",
-					image: "https://http.cat/411.jpg",
-					isCorrectAnswer: true
-				},
-				{
-					text: "Texto da resposta 2",
-					image: "https://http.cat/412.jpg",
-					isCorrectAnswer: false
-				}
-			]
-		}
-	],
-	levels: [
-		{
-			title: "Título do nível 1",
-			image: "https://http.cat/411.jpg",
-			text: "Descrição do nível 1",
-			minValue: 0
-		},
-		{
-			title: "Título do nível 2",
-			image: "https://http.cat/412.jpg",
-			text: "Descrição do nível 2",
-			minValue: 50
-		}
-	]
-}
+  title: quizzTitleInput,
+  image: quizzUrlInput,
+  questions: [
+    {
+      title: "Título da pergunta 1",
+      color: "#123456",
+      answers: [
+        {
+          text: "Texto da resposta 1",
+          image: "https://http.cat/411.jpg",
+          isCorrectAnswer: true,
+        },
+        {
+          text: "Texto da resposta 2",
+          image: "https://http.cat/412.jpg",
+          isCorrectAnswer: false,
+        },
+      ],
+    },
+    {
+      title: "Título da pergunta 2",
+      color: "#123456",
+      answers: [
+        {
+          text: "Texto da resposta 1",
+          image: "https://http.cat/411.jpg",
+          isCorrectAnswer: true,
+        },
+        {
+          text: "Texto da resposta 2",
+          image: "https://http.cat/412.jpg",
+          isCorrectAnswer: false,
+        },
+      ],
+    },
+    {
+      title: "Título da pergunta 3",
+      color: "#123456",
+      answers: [
+        {
+          text: "Texto da resposta 1",
+          image: "https://http.cat/411.jpg",
+          isCorrectAnswer: true,
+        },
+        {
+          text: "Texto da resposta 2",
+          image: "https://http.cat/412.jpg",
+          isCorrectAnswer: false,
+        },
+      ],
+    },
+  ],
+  levels: [
+    {
+      title: "Título do nível 1",
+      image: "https://http.cat/411.jpg",
+      text: "Descrição do nível 1",
+      minValue: 0,
+    },
+    {
+      title: "Título do nível 2",
+      image: "https://http.cat/412.jpg",
+      text: "Descrição do nível 2",
+      minValue: 50,
+    },
+  ],
+};
