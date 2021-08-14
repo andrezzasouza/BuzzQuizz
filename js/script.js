@@ -430,13 +430,16 @@ function toFinalizeQuizz() {
   screen10.classList.add("hide");
   const screen11 = document.querySelector(".screen11");
   screen11.classList.remove("hide");
-  sendQuizzToServer();
   renderFinalizedQuizz();
 }
 
 function sendQuizzToServer() {
   let quizzData = {/* preencher */};
   const promise = axios.post(POST_QUIZZES_URL, quizzData);
+
+  promise.then(toFinalizeQuizz);
+  promise.catch(alert("Algo deu errado!"));
+
 }
 
 function returnToHome() {
