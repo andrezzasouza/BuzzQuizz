@@ -9,18 +9,24 @@ const POST_QUIZZES_URL =
 // Foi o que o Leandro passou em aula
 // Alterei o formato e o nome quando acrescentei o outro link ;)
 
+const quizzAnswers = {
+  totalQuestions: 0,
+  rightAnswers: 0,
+  totalAnswered: 0
+}
+
 getQuizzes();
 
 function getQuizzes() {
   const promise = axios.get(GET_QUIZZES_URL);
   promise.then(listOfQuizzes);
-  promise.catch(() => console.log("Deu algum erro")); // depois explico isso!
+  // promise.catch(() => console.log("Deu algum erro")); // depois explico isso!
 }
 
 let path;
 
 function listOfQuizzes(response) {
-  console.log(response.data);
+  // console.log(response.data);
   path = response.data;
 
   const renderQuizzes = document.querySelector(".quizz-container");
@@ -58,17 +64,17 @@ function quizzPage(quizz) {
   const screen3to7 = document.querySelector(".screen3-7");
   screen3to7.classList.remove("hide");
 
-  console.log(quizz);
+  // console.log(quizz);
 
   const promise = axios.get(`${GET_QUIZZES_URL}/${quizz}`);
   promise.then(quizzSelected);
-  promise.catch(() => console.log("Deu algum erro")); // depois explico isso!
+  // promise.catch(() => console.log("Deu algum erro")); // depois explico isso!
 }
 
 function quizzSelected(response) {
-  console.log(response.data, "objeto");
-  console.log(response.data.questions, "perguntas");
-  console.log(response.data.questions.length, "respostas0");
+  // console.log(response.data, "objeto");
+  // console.log(response.data.questions, "perguntas");
+  // console.log(response.data.questions.length, "respostas0");
 
   for (let i = 0; i < response.data.questions.length; i++) {
     response.data.questions[i].answers.sort(comparador);
@@ -79,10 +85,10 @@ function quizzSelected(response) {
   }
 
   const questions = response.data.questions;
-  console.log(questions);
+  // console.log(questions);
   /* const levels = response.data.levels;
   console.log(levels); */
-  console.log(response.data.image);
+  // console.log(response.data.image);
 
   const topImage = document.querySelector(".screen3-7");
   topImage.innerHTML = `<div class="top-image">
@@ -123,15 +129,21 @@ function quizzSelected(response) {
   }
   const question = document.querySelector(".question");
   question.innerHTML += `${choices}`;
+
+  quizzAnswers.totalQuestions = questions.length
+  quizzAnswers.rightAnswers = 0
+  quizzAnswers.totalAnswered = 0
 }
 
+
 function selectAnswer(answerDivElement) {
+  quizzAnswers.totalAnswered += 1
   
   answerDivElement.classList.add('selected-answer')
-
+  
   const answerBox = answerDivElement.parentNode
   const allAnswer = answerBox.querySelectorAll('.choices')
-
+  
   for (const answer of allAnswer) {
     if (answer.classList.contains('correct-answer')) {
       answer.classList.add('right')
@@ -144,11 +156,43 @@ function selectAnswer(answerDivElement) {
     answer.setAttribute('onclick', '')
   }
 
+  if (answerDivElement.classList.contains('right')) quizzAnswers.rightAnswers += 1
+
   setTimeout(() => {
-    // Realiza o scroll na caixa de perguntas 
-    console.log(answerBox.parentNode.nextSibling)
-    answerBox.parentNode.nextSibling.scrollIntoView({ behavior: 'smooth' })
+    // Realiza o scroll na caixa de perguntas
+    if (answerBox.parentNode.nextSibling !== null) {
+      answerBox.parentNode.nextSibling.scrollIntoView({ behavior: 'smooth' })
+    }
   }, 2000)
+
+  const screenQuizz = document.querySelector('.screen3-7')
+
+  if (quizzAnswers.totalAnswered === quizzAnswers.totalQuestions) {
+    setTimeout(() => {
+      const totalScore = quizzAnswers.rightAnswers / quizzAnswers.totalQuestions * 100
+      screenQuizz.querySelector('.question').innerHTML += `<div class="results">
+        <div class="results-top">
+          <p>${totalScore}% de acerto: Você é praticamente um aluno de Hogwarts!</p>
+        </div>
+        <div class="results-feedback">
+          <img src="./images/welcome.jpeg" alt="dumbledore" />
+          <p>
+            Parabéns Potterhead! Bem-vindx a Hogwarts, aproveite o loop
+            infinito de comida e clique no botão abaixo para usar o vira-tempo
+            e reiniciar este teste.
+          </p>
+        </div>
+      </div>
+      <div class="buttons">
+        <div><button class="restart">Reiniciar Quizz</button></div>
+        <div><button class="back-to-home">Voltar para home</button></div>
+      </div>`
+
+      console.log(screenQuizz.querySelector('.results'))
+      screenQuizz.querySelector('.results').scrollIntoView({ behavior: 'smooth' })
+    }, 2000)
+
+  }
 
 }
 
@@ -420,7 +464,7 @@ function toCreateLevelsValidation() {
 
     if (levelTitleInput.length >=10) {
       levelValidationNumber++;
-      console.log("validou 1 título");
+      // console.log("validou 1 título");
     } else {
       alert("O título deve ter pelo menos 10 caracteres.")
     }
@@ -458,8 +502,8 @@ function toCreateLevelsValidation() {
 function toggleLevel(currentLevel) {
   //Adicionar uma condição para que funcione quando o nível estiver fechado e o resultado der null
   const togglingLevel = currentLevel.parentNode;
-  console.log("CL", currentLevel);
-  console.log("TL", togglingLevel);
+  // console.log("CL", currentLevel);
+  // console.log("TL", togglingLevel);
 
   togglingLevel
     .querySelector(".level-title-container")
@@ -492,7 +536,7 @@ function toFinalizeQuizz(response) {
   screen10.classList.add("hide");
   const screen11 = document.querySelector(".screen11");
   screen11.classList.remove("hide");
-  console.log(response);
+  // console.log(response);
   renderFinalizedQuizz();
 }
 
