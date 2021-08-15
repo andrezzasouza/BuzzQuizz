@@ -314,6 +314,8 @@ function toCreateQuizzValidation() {
 
 /*-------------CRIAR PERGUNTAS-------------------*/
 
+toCreateQuestions();
+
 function toCreateQuestions() {
   const screen8 = document.querySelector(".screen8");
   screen8.classList.add("hide");
@@ -325,13 +327,73 @@ function toCreateQuestions() {
 function renderQuestions() {
   let innerQuestionsInputs = "<h2>Crie suas perguntas</h2>";
 
-  for (let i = 1; i <= 3 /*número de perguntas*/; i++) {
+  for (let i = 1; i <= 2 /*número de perguntas*/; i++) {
     if (i === 1) {
-      // Preencher
+      innerQuestionsInputs += `<div class="create-question-box">
+      <div class="question-title-container collapsed-question" onclick="toggleQuestion(this)">
+        <h3>Pergunta ${i}</h3>
+        <ion-icon name="create-outline"></ion-icon>
+      </div>
+      <div class="question-input-container">`
     } else {
-      // Preencher
+      innerQuestionsInputs += `<div class="create-question-box">
+      <div class="question-title-container uncollapsed-question" onclick="toggleQuestion(this)">
+        <h3>Pergunta ${i}</h3>
+        <ion-icon name="create-outline"></ion-icon>
+      </div>
+      <div class="question-input-container hide">`
     }
+    innerQuestionsInputs+= `<div class="question-inputs">
+        <input
+          type="text"
+          class="quizz-input question-text${i}"
+          placeholder="Texto da pergunta"
+        />
+        <input
+          type="text"
+          class="quizz-input question-bg-color${i}"
+          placeholder="Cor de fundo da pergunta"
+        />
+      </div>
+      <div class="correct-answer-section">
+        <h3>Resposta correta</h3>
+        <input
+          type="text"
+          class="quizz-input correct-answer${i}"
+          placeholder="Resposta correta"
+        />
+        <input
+          type="text"
+          class="quizz-input image-url${i}"
+          placeholder="URL da imagem"
+        />
+      </div>
+      <div class="incorrect-answer-section">
+        <h3>Respostas incorretas</h3>`
+      for (let j = 1; j <= 2 /*número de perguntas mensos 1 */; j++) {
+        innerQuestionsInputs += `<div><input
+          type="text"
+          class="quizz-input"
+          placeholder="Resposta incorreta ${j}"
+        />
+        <input
+          type="text"
+          class="quizz-input incorrect-answer${i}-${j}"
+          placeholder="URL da imagem ${j}"
+        />
+        </div>`
+      }
+      innerQuestionsInputs += `</div>
+      </div>
+    </div>`
   }
+  const insertButton = `<button
+  class="btn-create-levels"
+  onclick="validateQuestionsCreation(this)">
+    Prosseguir pra criar níveis
+  </button>`
+  document.querySelector(".screen9").innerHTML =
+    innerQuestionsInputs + insertButton;
 }
 
 function toggleQuestion(currentQuestion) {
