@@ -449,13 +449,13 @@ main.screen11 {
 
 /* TELA 9 - CRIANDO PERGUNTAS */
 
-.screen9 .create-question-box {
+/* .screen9 .create-question-box {
   background: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
   width: 100%;
   padding: 21px 20px 5px 16px;
   margin: 36px 0 2px;
-}
+} */
 
 .create-question-box div {
   margin-bottom: 14px;
@@ -509,7 +509,7 @@ h3 {
 }
 
 /* TELA 10 - CRIANDO NÍVEIS */
-
+.screen9 .create-question-box,
 .screen10 .create-level-box {
   background: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
@@ -517,22 +517,26 @@ h3 {
   margin: 36px 0 2px;
 }
 
+.question-title-container,
 .level-title-container {
   display: flex;
   justify-content: space-between;
   
 }
 
+.collapsed-question,
 .collapsed-level {
   padding: 27px 20px 0 17px;
 }
 
+.collapsed-question ion-icon,
 .collapsed-level ion-icon {
   width: 26px;
   height: 23px;
   display: none;
 }
 
+.question-input-container,
 .level-input-container {
   padding: 0px 20px 19px 16px;
 }
