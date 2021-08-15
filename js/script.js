@@ -466,7 +466,7 @@ function toValidateQuestion() {
     }
     // console.log(quizzData.question[k].answers[l])
   }
-  console.log(quizzData)
+  console.log("passou por aqui", quizzData)
 }
 
 function toggleQuestion(currentQuestion) {
