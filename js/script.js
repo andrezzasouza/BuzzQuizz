@@ -25,10 +25,12 @@ function getQuizzes() {
 }
 
 let path;
+let chooseQuizz;
 
 function listOfQuizzes(response) {
   // console.log(response.data);
   path = response.data;
+  console.log(path, "caminho");
 
   const renderQuizzes = document.querySelector(".quizz-container");
 
@@ -58,6 +60,9 @@ function listOfQuizzes(response) {
 /*-------------PÁGINA DE UM QUIZZ-------------------*/
 
 function quizzPage(quizz) {
+  chooseQuizz = quizz;
+  console.log(quizz, "quizz");
+  console.log(chooseQuizz, "chooseQuizz");
   // esconde a tela onde estou no momento adicionando a classe hide
   const screen1 = document.querySelector(".screen1");
   screen1.classList.add("hide");
@@ -106,6 +111,9 @@ function quizzSelected({ data }) {
   ), url(${image})`;
   const imgBgTitle = topImage.querySelector(".title");
   imgBgTitle.innerHTML = `${title}`;
+
+  const top = document.querySelector(".top-image");
+  top.scrollIntoView({ behavior: "smooth" });
 
   let choices = "";
 
@@ -190,7 +198,7 @@ function selectAnswer(answerDivElement) {
         </div>
       </div>
       <div class="buttons">
-        <div><button class="restart">Reiniciar Quizz</button></div>
+        <div><button class="restart" onclick="restartQuizz()">Reiniciar Quizz</button></div>
         <div><button class="back-to-home" onclick="backToHome()">Voltar para home</button></div>
       </div>`;
 
@@ -200,6 +208,12 @@ function selectAnswer(answerDivElement) {
         .scrollIntoView({ behavior: "smooth" });
     }, 2000);
   }
+}
+
+function restartQuizz() {
+  console.log(chooseQuizz);
+  const promise = axios.get(`${GET_QUIZZES_URL}/${chooseQuizz}`);
+  promise.then(quizzSelected);
 }
 
 function backToHome() {
