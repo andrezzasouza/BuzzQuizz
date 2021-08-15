@@ -13,8 +13,8 @@ const quizzAnswers = {
   totalQuestions: 0,
   rightAnswers: 0,
   totalAnswered: 0,
-  levelsObject: {}
-}
+  levelsObject: {},
+};
 
 getQuizzes();
 
@@ -73,7 +73,7 @@ function quizzPage(quizz) {
 }
 
 function quizzSelected({ data }) {
-  const { questions, image, title, levels } = data
+  const { questions, image, title, levels } = data;
   console.log(levels, "objeto");
   // console.log(questions, "perguntas");
   // console.log(questions.length, "respostas0");
@@ -115,15 +115,16 @@ function quizzSelected({ data }) {
                 </div>
                 <div class="question-box-choices">`;
     for (let k = 0; k < questions[j].answers.length; k++) {
-      let correctAnswer = 'incorrect-answer'
-      if (questions[j].answers[k].isCorrectAnswer) correctAnswer = 'correct-answer'
-      
+      let correctAnswer = "incorrect-answer";
+      if (questions[j].answers[k].isCorrectAnswer)
+        correctAnswer = "correct-answer";
+
       choices += `<div class="choices ${correctAnswer}" onclick="selectAnswer(this)">
                     <img src=${questions[j].answers[k].image} alt="castle" />
                     <p>${questions[j].answers[k].text}</p>
                   </div>`;
-                  // console.log('É CORRETA!')
-                  // console.log(questions[j].answers[k].isCorrectAnswer)
+      // console.log('É CORRETA!')
+      // console.log(questions[j].answers[k].isCorrectAnswer)
     }
     choices += `</div>
                 </div>`;
@@ -131,105 +132,116 @@ function quizzSelected({ data }) {
   const question = document.querySelector(".question");
   question.innerHTML += `${choices}`;
 
-  quizzAnswers.totalQuestions = questions.length
-  quizzAnswers.rightAnswers = 0
-  quizzAnswers.totalAnswered = 0
-  quizzAnswers.levelsObject = Object.values(levels)
+  quizzAnswers.totalQuestions = questions.length;
+  quizzAnswers.rightAnswers = 0;
+  quizzAnswers.totalAnswered = 0;
+  quizzAnswers.levelsObject = Object.values(levels);
 }
 
-
 function selectAnswer(answerDivElement) {
-  quizzAnswers.totalAnswered += 1
-  
-  answerDivElement.classList.add('selected-answer')
-  
-  const answerBox = answerDivElement.parentNode
-  const allAnswer = answerBox.querySelectorAll('.choices')
-  
+  quizzAnswers.totalAnswered += 1;
+
+  answerDivElement.classList.add("selected-answer");
+
+  const answerBox = answerDivElement.parentNode;
+  const allAnswer = answerBox.querySelectorAll(".choices");
+
   for (const answer of allAnswer) {
-    if (answer.classList.contains('correct-answer')) {
-      answer.classList.add('right')
+    if (answer.classList.contains("correct-answer")) {
+      answer.classList.add("right");
     } else {
-      answer.classList.add('wrong')
+      answer.classList.add("wrong");
     }
-    if (!(answer.classList.contains('selected-answer'))) {
-      answer.classList.add('not')
+    if (!answer.classList.contains("selected-answer")) {
+      answer.classList.add("not");
     }
-    answer.setAttribute('onclick', '')
+    answer.setAttribute("onclick", "");
   }
 
-  if (answerDivElement.classList.contains('right')) quizzAnswers.rightAnswers += 1
+  if (answerDivElement.classList.contains("right"))
+    quizzAnswers.rightAnswers += 1;
 
   setTimeout(() => {
     // Realiza o scroll na caixa de perguntas
     if (answerBox.parentNode.nextSibling !== null) {
-      answerBox.parentNode.nextSibling.scrollIntoView({ behavior: 'smooth' })
+      answerBox.parentNode.nextSibling.scrollIntoView({ behavior: "smooth" });
     }
-  }, 2000)
+  }, 2000);
 
-  const screenQuizz = document.querySelector('.screen3-7')
+  const screenQuizz = document.querySelector(".screen3-7");
 
   if (quizzAnswers.totalAnswered === quizzAnswers.totalQuestions) {
     setTimeout(() => {
-      const totalScore = Math.round(quizzAnswers.rightAnswers / quizzAnswers.totalQuestions * 100)
+      const totalScore = Math.round(
+        (quizzAnswers.rightAnswers / quizzAnswers.totalQuestions) * 100
+      );
 
-      const { title, image, text } = selectLevel(totalScore)
+      const { title, image, text } = selectLevel(totalScore);
 
-      screenQuizz.querySelector('.question').innerHTML += `<div class="results">
+      screenQuizz.querySelector(".question").innerHTML += `<div class="results">
         <div class="results-top">
-          <p>${ totalScore }% de acerto: ${ title }</p>
+          <p>${totalScore}% de acerto: ${title}</p>
         </div>
         <div class="results-feedback">
-          <img src="${ image }" alt="dumbledore" />
+          <img src="${image}" alt="dumbledore" />
           <p>
-            ${ text }
+            ${text}
           </p>
         </div>
       </div>
       <div class="buttons">
         <div><button class="restart">Reiniciar Quizz</button></div>
-        <div><button class="back-to-home">Voltar para home</button></div>
-      </div>`
+        <div><button class="back-to-home" onclick="backToHome()">Voltar para home</button></div>
+      </div>`;
 
-      console.log(screenQuizz.querySelector('.results'))
-      screenQuizz.querySelector('.results').scrollIntoView({ behavior: 'smooth' })
-    }, 2000)
-
+      console.log(screenQuizz.querySelector(".results"));
+      screenQuizz
+        .querySelector(".results")
+        .scrollIntoView({ behavior: "smooth" });
+    }, 2000);
   }
+}
 
+function backToHome() {
+  const screen3to7 = document.querySelector(".screen3-7");
+  screen3to7.classList.add("hide");
+  const screen1 = document.querySelector(".screen1");
+  screen1.classList.remove("hide");
+  const createQuizzBox = document.querySelector(".no-quizz");
+  createQuizzBox.scrollIntoView({ behavior: "smooth" });
 }
 
 function selectLevel(totalScore) {
-  const levelsObject = quizzAnswers.levelsObject
-  let minValues = []
-  let index = 0
+  const levelsObject = quizzAnswers.levelsObject;
+  let minValues = [];
+  let index = 0;
 
-  console.log(levelsObject)
+  console.log(levelsObject);
   for (const level of levelsObject) {
     minValues.push({
       index: index,
-      value: level.minValue}
-      )
-    index++
+      value: level.minValue,
+    });
+    index++;
   }
 
-  minValues = minValues.sort((a, b) => a.value-b.value)  // NÃO ESTÁ OPERANDO PLENAMENTE
-  
-  for (let i=1; i<minValues.length; i++) {
-    const lastMinValue = minValues[i-1].value
-    const actualMinValue = minValues[i].value
-    correctLevel = levelsObject[minValues[i-1].index]
+  minValues = minValues.sort((a, b) => a.value - b.value); // NÃO ESTÁ OPERANDO PLENAMENTE
+
+  for (let i = 1; i < minValues.length; i++) {
+    const lastMinValue = minValues[i - 1].value;
+    const actualMinValue = minValues[i].value;
+    correctLevel = levelsObject[minValues[i - 1].index];
     if (actualMinValue === 100) {
-      correctLevel = levelsObject[minValues[i].index]
-      break
+      correctLevel = levelsObject[minValues[i].index];
+      break;
     }
     if (lastMinValue <= totalScore && totalScore < actualMinValue) {
-      break
+      break;
     }
-    correctLevel = levelsObject[minValues[i].index]
+    correctLevel = levelsObject[minValues[i].index];
   }
 
-  return correctLevel
+  return correctLevel;
 }
 
 /*-------------CRIAR UM QUIZZ-------------------*/
@@ -248,29 +260,33 @@ let quizzAnswersInput = "";
 let quizzData = {
   title: "",
   image: "",
-  questions: [{
-    title: "",
-    color: "",
-    answers: [
-      {
-        text: "",
-        image: "",
-        isCorrectAnswer: true,
-      },
-      {
-        text: "",
-        image: "",
-        isCorrectAnswer: false,
-      }
-    ] 
-  }],
-  levels: [{
-    title: "",
-    image: "",
-    text: "",
-    minValue: 0,
-  }]
-}
+  questions: [
+    {
+      title: "",
+      color: "",
+      answers: [
+        {
+          text: "",
+          image: "",
+          isCorrectAnswer: true,
+        },
+        {
+          text: "",
+          image: "",
+          isCorrectAnswer: false,
+        },
+      ],
+    },
+  ],
+  levels: [
+    {
+      title: "",
+      image: "",
+      text: "",
+      minValue: 0,
+    },
+  ],
+};
 
 function toCreateQuizzValidation() {
   let validationNumber = 0;
@@ -302,14 +318,12 @@ function toCreateQuizzValidation() {
     quizzData = {
       title: quizzTitleInput,
       image: quizzUrlInput,
-    }
-    console.log(quizzData)
+    };
+    console.log(quizzData);
     toCreateQuestions();
   } else {
     alert("Validação errada!");
   }
-
-  
 }
 
 /*-------------CRIAR PERGUNTAS-------------------*/
@@ -556,24 +570,25 @@ function toCreateLevelsValidation() {
 
   for (let i = 1; i <= 3 /*quizzLevelsInput*/; i++) {
     let j = i - 1;
-    let levelTitleInput= document.querySelector(`.level-title${i}`).value;
+    let levelTitleInput = document.querySelector(`.level-title${i}`).value;
     let levelPercentageInput = parseInt(
       document.querySelector(`.level-percentage${i}`).value
     );
-    let levelDescriptionInput = document.querySelector(`.level-description${i}`).value;
+    let levelDescriptionInput = document.querySelector(
+      `.level-description${i}`
+    ).value;
 
-    if (levelTitleInput.length >=10) {
+    if (levelTitleInput.length >= 10) {
       levelValidationNumber++;
       // console.log("validou 1 título");
     } else {
-      alert("O título deve ter pelo menos 10 caracteres.")
+      alert("O título deve ter pelo menos 10 caracteres.");
     }
 
-    if (levelPercentageInput >= 0 && levelPercentageInput <= 100)/*validar se pelo menos um deles é 0*/ {
-      if (levelPercentageInput === 0) {
-        minZero++
+    if (levelPercentageInput >= 0 && levelPercentageInput <= 100) {
+      /*validar se pelo menos um deles é 0*/ if (levelPercentageInput === 0) {
+        minZero++;
       }
-      
     } else {
       // colocar algo que impeça que a pessoa coloque um texto ou outro valor inválido e funcione?
       alert("O valor da porcentagem deve estar entre 0 e 100.");
@@ -589,20 +604,19 @@ function toCreateLevelsValidation() {
       title: levelTitleInput,
       image: levelUrlInput,
       text: levelDescriptionInput,
-      minValue: levelPercentageInput
-    }
+      minValue: levelPercentageInput,
+    };
     console.log(`pass ${i}`, quizzData.levels[j]);
   }
 
   if (minZero > 0) {
-    levelValidationNumber +=3 /*quizzLevelsInput*/;
+    levelValidationNumber += 3 /*quizzLevelsInput*/;
   } else {
-    alert("O percentual mínimo de pelo menos 1 nível deve ser 0")
+    alert("O percentual mínimo de pelo menos 1 nível deve ser 0");
   }
 
-  if (levelValidationNumber >= (3 * 3 /*quizzLevelsInput*/)) {
+  if (levelValidationNumber >= 3 * 3 /*quizzLevelsInput*/) {
     sendQuizzToServer(quizzData);
-    
   } else {
     alert("Validação errada!");
   }
@@ -628,7 +642,7 @@ function toggleLevel(currentLevel) {
 /*-------------FINALIZA CRIAÇÃO DO QUIZZ-------------------*/
 
 function renderFinalizedQuizz(response) {
-  console.log("render", response)
+  console.log("render", response);
   const innerFinalizedScreen = `<h2>Seu quizz está pronto!</h2>
   <div class="created-quizz-img">
     <p class="created-quizz-title">${quizzTitleInput}</p>
@@ -651,7 +665,7 @@ function toFinalizeQuizz(response) {
 }
 
 function sendQuizzToServer() {
-  console.log(quizzData)
+  console.log(quizzData);
   const promise = axios.post(POST_QUIZZES_URL, quizzData);
 
   promise.then(toFinalizeQuizz);
