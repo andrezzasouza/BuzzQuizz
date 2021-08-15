@@ -12,7 +12,8 @@ const POST_QUIZZES_URL =
 const quizzAnswers = {
   totalQuestions: 0,
   rightAnswers: 0,
-  totalAnswered: 0
+  totalAnswered: 0,
+  levelsObject: {}
 }
 
 getQuizzes();
@@ -71,24 +72,24 @@ function quizzPage(quizz) {
   // promise.catch(() => console.log("Deu algum erro")); // depois explico isso!
 }
 
-function quizzSelected(response) {
-  // console.log(response.data, "objeto");
-  // console.log(response.data.questions, "perguntas");
-  // console.log(response.data.questions.length, "respostas0");
+function quizzSelected({ data }) {
+  const { questions, image, title, levels } = data
+  console.log(levels, "objeto");
+  // console.log(questions, "perguntas");
+  // console.log(questions.length, "respostas0");
 
-  for (let i = 0; i < response.data.questions.length; i++) {
-    response.data.questions[i].answers.sort(comparador);
+  for (let i = 0; i < questions.length; i++) {
+    questions[i].answers.sort(comparador);
   }
 
   function comparador() {
     return Math.random() - 0.5;
   }
 
-  const questions = response.data.questions;
   // console.log(questions);
-  /* const levels = response.data.levels;
+  /* const levels = levels;
   console.log(levels); */
-  // console.log(response.data.image);
+  // console.log(image);
 
   const topImage = document.querySelector(".screen3-7");
   topImage.innerHTML = `<div class="top-image">
@@ -96,15 +97,15 @@ function quizzSelected(response) {
                         </div>
                         <section class="question">
                         </section>`;
-  const image = topImage.querySelector(".top-image");
-  image.style.backgroundImage = `linear-gradient(
+  const bgImage = topImage.querySelector(".top-image");
+  bgImage.style.backgroundImage = `linear-gradient(
     180deg,
     rgba(255, 255, 255, 0) 0%,
     rgba(0, 0, 0, 0.5) 64.58%,
     #000000 100%
-  ), url(${response.data.image})`;
-  const title = topImage.querySelector(".title");
-  title.innerHTML = `${response.data.title}`;
+  ), url(${image})`;
+  const imgBgTitle = topImage.querySelector(".title");
+  imgBgTitle.innerHTML = `${title}`;
 
   let choices = "";
 
@@ -133,6 +134,7 @@ function quizzSelected(response) {
   quizzAnswers.totalQuestions = questions.length
   quizzAnswers.rightAnswers = 0
   quizzAnswers.totalAnswered = 0
+  quizzAnswers.levelsObject = Object.values(levels)
 }
 
 
@@ -169,17 +171,18 @@ function selectAnswer(answerDivElement) {
 
   if (quizzAnswers.totalAnswered === quizzAnswers.totalQuestions) {
     setTimeout(() => {
-      const totalScore = quizzAnswers.rightAnswers / quizzAnswers.totalQuestions * 100
+      const totalScore = Math.round(quizzAnswers.rightAnswers / quizzAnswers.totalQuestions * 100)
+
+      const { title, image, text } = selectLevel(totalScore)
+
       screenQuizz.querySelector('.question').innerHTML += `<div class="results">
         <div class="results-top">
-          <p>${totalScore}% de acerto: Você é praticamente um aluno de Hogwarts!</p>
+          <p>${ totalScore }% de acerto: ${ title }</p>
         </div>
         <div class="results-feedback">
-          <img src="./images/welcome.jpeg" alt="dumbledore" />
+          <img src="${ image }" alt="dumbledore" />
           <p>
-            Parabéns Potterhead! Bem-vindx a Hogwarts, aproveite o loop
-            infinito de comida e clique no botão abaixo para usar o vira-tempo
-            e reiniciar este teste.
+            ${ text }
           </p>
         </div>
       </div>
@@ -194,6 +197,40 @@ function selectAnswer(answerDivElement) {
 
   }
 
+}
+
+
+function selectLevel(totalScore) {
+  const levelsObject = quizzAnswers.levelsObject
+  let minValues = []
+  let index = 0
+
+  console.log(levelsObject)
+  for (const level of levelsObject) {
+    minValues.push({
+      index: index,
+      value: level.minValue}
+      )
+    index++
+  }
+
+  minValues = minValues.sort((a, b) => a.value-b.value)  // NÃO ESTÁ OPERANDO PLENAMENTE
+  
+  for (let i=1; i<minValues.length; i++) {
+    const lastMinValue = minValues[i-1].value
+    const actualMinValue = minValues[i].value
+    correctLevel = levelsObject[minValues[i-1].index]
+    if (actualMinValue === 100) {
+      correctLevel = levelsObject[minValues[i].index]
+      break
+    }
+    if (lastMinValue <= totalScore && totalScore < actualMinValue) {
+      break
+    }
+    correctLevel = levelsObject[minValues[i].index]
+  }
+
+  return correctLevel
 }
 
 /*-------------CRIAR UM QUIZZ-------------------*/
@@ -240,7 +277,6 @@ function toCreateQuizzValidation() {
   } else {
     alert("Validação errada!");
   }
-  // teste commit
 }
 
 /*-------------CRIAR PERGUNTAS-------------------*/
