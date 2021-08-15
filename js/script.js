@@ -270,7 +270,7 @@ function toCreateQuizz() {
 let quizzLevelsInput = 0;
 let quizzTitleInput = "";
 let quizzUrlInput = "";
-let quizzAnswersInput = "";
+let quizzQuestionsInput = "";
 let quizzData = {
   title: "",
   image: "",
@@ -307,7 +307,7 @@ function toCreateQuizzValidation() {
   quizzTitleInput = document.querySelector(".title").value;
   quizzUrlInput = document.querySelector(".url").value;
   //Falta validar a url
-  quizzAnswersInput = parseInt(document.querySelector(".num-answers").value);
+  quizzQuestionsInput = parseInt(document.querySelector(".num-answers").value);
   quizzLevelsInput = parseInt(document.querySelector(".num-levels").value);
 
   if (quizzTitleInput.length >= 20 && quizzTitleInput.length <= 65) {
@@ -316,7 +316,7 @@ function toCreateQuizzValidation() {
     alert("O título deve ter entre 20 e 65 caracteres.");
   }
 
-  if (quizzAnswersInput >= 3) {
+  if (quizzQuestionsInput >= 3) {
     validationNumber++;
   } else {
     alert("Ao menos 3 perguntas devem ser desenvolvidas.");
@@ -353,9 +353,10 @@ function toCreateQuestions() {
 }
 
 function renderQuestions() {
+
   let innerQuestionsInputs = "<h2>Crie suas perguntas</h2>";
 
-  for (let i = 1; i <= 2 /*número de perguntas*/; i++) {
+  for (let i = 1; i <= 3 /*quizzQuestionsInput*/; i++) {
     if (i === 1) {
       innerQuestionsInputs += `<div class="create-question-box">
       <div class="question-title-container collapsed-question" onclick="toggleQuestion(this)">
@@ -398,15 +399,15 @@ function renderQuestions() {
       </div>
       <div class="incorrect-answer-section">
         <h3>Respostas incorretas</h3>`
-      for (let j = 1; j <= 2 /*número de perguntas mensos 1 */; j++) {
+      for (let j = 1; j <= 3; j++) {
         innerQuestionsInputs += `<div><input
           type="text"
-          class="quizz-input"
+          class="quizz-input incorrect-answer${i}-${j}"
           placeholder="Resposta incorreta ${j}"
         />
         <input
           type="text"
-          class="quizz-input incorrect-answer${i}-${j}"
+          class="quizz-input incorrect-image${i}-${j}"
           placeholder="URL da imagem ${j}"
         />
         </div>`
@@ -415,13 +416,57 @@ function renderQuestions() {
       </div>
     </div>`
   }
+
   const insertButton = `<button
   class="btn-create-levels"
-  onclick="validateQuestionsCreation(this)">
+  onclick="toValidateQuestion()">
     Prosseguir pra criar níveis
   </button>`
   document.querySelector(".screen9").innerHTML =
     innerQuestionsInputs + insertButton;
+}
+
+function toValidateQuestion() {
+  console.log("aqui")
+  for (let i = 1; i <= 3 /*quizzQuestionsInput*/; i++) {
+    let k = i - 1;    
+    let questionTextInput = document.querySelector(`.question-text${i}`).value;
+    let questionBgColorInput = document.querySelector(`.question-bg-color${i}`).value;
+    let correctAnswerInput = document.querySelector(`.correct-answer${i}`).value;
+    let correctImageInput = document.querySelector(`.image-url${i}`).value;
+
+    quizzData.questions[k] = {
+      title: questionTextInput,
+      color: questionBgColorInput,
+      answers: {}
+    }
+
+    console.log(quizzData.questions[k])
+
+    for (let j = 1; j <= 4; j++) {
+      let l = j - 1
+      if (j === 1) {
+        quizzData.questions[k].answers[l] = {
+          text: correctAnswerInput,
+          image: correctImageInput,
+          isCorrectAnswer: true,
+        }
+        console.log(quizzData.questions[k].answers[l])
+        console.log(quizzData.questions[k])
+        console.log(quizzData)
+      } else {
+        // let incorrectAnswerInput = document.querySelector(`.incorrect-answer${i}-${j}`).value;
+        // let incorrectImageInput = document.querySelector(`.incorrect-image${i}-${j}`).value;
+        // quizzData.questions[k].answers[l] = {
+        //   text: incorrectAnswerInput,
+        //   image: incorrectImageInput,
+        //   isCorrectAnswer: false,
+        // }
+      }
+    }
+    // console.log(quizzData.question[k].answers[l])
+  }
+  console.log(quizzData)
 }
 
 function toggleQuestion(currentQuestion) {
