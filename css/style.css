@@ -46,10 +46,7 @@ button {
 /* TELA 1 - LISTA DE QUIZZES */
 
 main {
-  /* Precisa mesmo desse max-width? Não entendi bem pq foi usado,
-  tentei tirar para a top-image ficar certinha na tela */
   max-width: var(--main-max-width);
-  /* margin: var(--main-top-margin) auto 211px; */
   margin: var(--main-top-margin) var(--main-side-margins) 211px;
 }
 
@@ -120,12 +117,6 @@ main h2 {
   cursor: pointer;
 }
 
-/* .quizz img {
-  width: 100%;
-  height: 100%;
-  border-radius: 5px;
-} */
-
 .quizz-title {
   width: 301px;
   position: absolute;
@@ -159,6 +150,7 @@ main h2 {
   display: flex;
   padding-top: 12px;
   justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
 .my-quizz {
@@ -178,7 +170,7 @@ main h2 {
   line-height: 22px;
   color: #ffffff;
   position: relative;
-  margin-left: 16px;
+  margin-left: 5px;
   line-break: anywhere;
 }
 
@@ -189,21 +181,17 @@ main h2 {
 /* TELAS 3/4/5/6/7 - LISTA DE QUIZZES */
 
 .top-image {
-  /* Achei meio gambiarra a margin, mas fiquei com medo de ferrar as margins dos main mudando algo */
   margin-top: calc(var(--header-height) - var(--main-top-margin));
   margin-left: calc(-1 * var(--main-side-margins));
   margin-right: calc(-1 * var(--main-side-margins));
-  /* right: 0; */
   width: 100vw;
   height: var(--top-img-height);
   background-image: url("https://d2p7ncqs8iaoqd.cloudfront.net/uploads/2020/07/Hogwaarts.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  /* background-position: 50% 50%; */
   display: flex;
   align-items: center;
   justify-content: center;
-  /* z-index: 1; */
   padding: 26px;
 }
 
@@ -235,7 +223,6 @@ main h2 {
 .question-box-top {
   width: 688.16px;
   height: 137.99px;
-  /* background: #434ca0; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -274,7 +261,6 @@ main h2 {
   font-size: 20px;
   line-height: 23px;
   line-break: anywhere;
-  /* color: #000000; */
 }
 
 .wrong {
@@ -362,7 +348,6 @@ main h2 {
   color: #fff5f4;
 }
 
-/*.buttons*/
 .back-to-home {
   width: 219.64px;
   height: 44px;
@@ -378,7 +363,6 @@ main h2 {
 }
 
 /* TELA 8 - CRIANDO QUIZZ */
-/* Fiz sem verificar o layout no browser, talvez precise de ajustes */
 
 main.screen8,
 main.screen9,
@@ -412,11 +396,11 @@ main.screen11 {
   border: 1px solid #d1d1d1;
   border-radius: 5px;
   height: 46px;
-  width: 100%; /* ver se isso não vai sobrepor o padding de fora*/
+  width: 100%;
   font-size: 19px;
   line-height: 22px;
   color: #bababa;
-  font-family: inherit; /* verificar se deu certo */
+  font-family: inherit;
   font-style: italic;
   margin-bottom: 9px;
   padding: 13px 23.16px 14px;
@@ -448,14 +432,6 @@ main.screen11 {
 }
 
 /* TELA 9 - CRIANDO PERGUNTAS */
-
-/* .screen9 .create-question-box {
-  background: #ffffff;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
-  width: 100%;
-  padding: 21px 20px 5px 16px;
-  margin: 36px 0 2px;
-} */
 
 .create-question-box div {
   margin-bottom: 14px;
@@ -582,7 +558,7 @@ h3 {
   font-size: 23px;
   line-height: 27px;
   color: #ffffff;
-  width: 90.8%; /*não sei se funciona */
+  width: 90.8%;
   bottom: 9px;
   position: absolute;
   left: 23px;
@@ -699,7 +675,12 @@ h3 {
     width: 100%;
   }
 
-  .question-box-choices img {
+  .choices {
+    width: unset;
+    height: unset;
+  }
+
+  .question-box-choices > .choices > img {
     width: 163px;
     height: 113px;
   }
@@ -783,9 +764,25 @@ h3 {
   /* TELA 10 */
 
   .description {
+    width: 100%;
     height: 177px;
-    resize: both;
+    resize: vertical;
     overflow-y: scroll;
+  }
+
+  .btn-finalize-quizz {
+    font-size: 18px;
+    line-height: 21px;
+    margin: 28px auto 0;
+  }
+
+  .screen10 .create-level-box {
+    margin-top: 24px;
+    margin-bottom: 0;
+  }
+
+  .create-level-box div {
+    margin-bottom: 0;
   }
 
   /* TELA 11 */

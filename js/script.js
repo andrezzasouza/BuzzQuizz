@@ -5,9 +5,6 @@ const GET_QUIZZES_URL =
 
 const POST_QUIZZES_URL =
   "https://mock-api.bootcamp.respondeai.com.br/api/v3/buzzquizz/quizzes";
-// Essa variável será usada para deixar as requisições do axios mais semânticas
-// Foi o que o Leandro passou em aula
-// Alterei o formato e o nome quando acrescentei o outro link ;)
 
 const quizzAnswers = {
   totalQuestions: 0,
@@ -21,7 +18,7 @@ getQuizzes();
 function getQuizzes() {
   const promise = axios.get(GET_QUIZZES_URL);
   promise.then(listOfQuizzes);
-  // promise.catch(() => console.log("Deu algum erro")); // depois explico isso!
+  promise.catch(() => alert("Deu algum erro"));
 }
 
 let path;
@@ -30,39 +27,53 @@ const myQuizzes = [];
 let ids;
 
 function listOfQuizzes(response) {
-  // console.log(response.data);
-  /* console.log(exemploSerializado);
-  console.log(myQuizzes);
-  console.log(typeof myQuizzes); */
   path = response.data;
-  console.log(path, "caminho");
+  const listaSerializada = localStorage.getItem("ids");
+  ids = JSON.parse(listaSerializada);
 
-  if (localStorage.ids.length > 0) {
-    const noQuizz = document.querySelector(".no-quizz");
-    console.log(noQuizz);
-    noQuizz.remove();
-    const renderMyQuizzes = document.querySelector(".screen1");
-    renderMyQuizzes.innerHTML = `
-    <section class="my-quizzes">
-        <div class="my-quizzes-top">
-          <h2>Seus quizzes</h2>
-          <ion-icon name="add-circle" onclick="toCreateQuizz()"></ion-icon>
-        </div>
-        <div class="my-quizzes-container">
-          <div class="my-quizz"> 
-            <p class="quizz-title">O quão Potterhead é você?</p>
+  if (ids !== null) {
+    if (ids.length > 0) {
+      const noQuizz = document.querySelector(".no-quizz");
+      noQuizz.remove();
+      const renderMyQuizzes = document.querySelector(".screen1");
+      renderMyQuizzes.innerHTML = `
+      <section class="my-quizzes">
+          <div class="my-quizzes-top">
+            <h2>Seus quizzes</h2>
+            <ion-icon name="add-circle" onclick="toCreateQuizz()"></ion-icon>
           </div>
-          <div class="my-quizz">
-            <p class="quizz-title"></p>
-          </div>
-        </div>
-      </section>
-      <section>
-        <h2>Todos os Quizzes</h2>
-        <div class="quizz-container">
-        </div>
-      </section>
-    `;
+          <div class="my-quizzes-container">
+          `;
+
+      for (let i = 0; i < ids.length; i++) {
+        const myQuizzesDisplay = document.querySelector(
+          ".my-quizzes-container"
+        );
+
+        myQuizzesDisplay.innerHTML += `<div class="my-quizz my-quizz${ids[i].id}" onclick="quizzPage(${ids[i].id})"> 
+          <p class="quizz-title">${ids[i].title}</p>
+        </div>`;
+      }
+
+      for (let i = 0; i < ids.length; i++) {
+        const image = document.querySelector(`.my-quizz${ids[i].id}`);
+        image.style.backgroundImage = `linear-gradient(
+                  180deg,
+                  rgba(255, 255, 255, 0) 0%,
+                  rgba(0, 0, 0, 0.5) 64.58%,
+                  #000000 100%
+                ), url(${ids[i].image})`;
+      }
+
+      renderMyQuizzes.innerHTML += `</div>
+          </section>
+          <section>
+            <h2>Todos os Quizzes</h2>
+            <div class="quizz-container">
+            </div>
+          </section>
+        `;
+    }
   } else {
     const renderCreateQuizzBox = document.querySelector(".screen1");
     renderCreateQuizzBox.innerHTML = `<section class="no-quizz">
@@ -107,27 +118,18 @@ function listOfQuizzes(response) {
 
 function quizzPage(quizz) {
   chooseQuizz = quizz;
-  console.log(quizz, "quizz");
-  console.log(chooseQuizz, "chooseQuizz");
-  // esconde a tela onde estou no momento adicionando a classe hide
   const screen1 = document.querySelector(".screen1");
   screen1.classList.add("hide");
-  // aparece a tela desktop 3 retirando a classe hide
   const screen3to7 = document.querySelector(".screen3-7");
   screen3to7.classList.remove("hide");
 
-  // console.log(quizz);
-
   const promise = axios.get(`${GET_QUIZZES_URL}/${quizz}`);
   promise.then(quizzSelected);
-  // promise.catch(() => console.log("Deu algum erro")); // depois explico isso!
+  promise.catch(() => alert("Deu algum erro"));
 }
 
 function quizzSelected({ data }) {
   const { questions, image, title, levels } = data;
-  console.log(levels, "objeto");
-  // console.log(questions, "perguntas");
-  // console.log(questions.length, "respostas0");
 
   for (let i = 0; i < questions.length; i++) {
     questions[i].answers.sort(comparador);
@@ -136,11 +138,6 @@ function quizzSelected({ data }) {
   function comparador() {
     return Math.random() - 0.5;
   }
-
-  // console.log(questions);
-  /* const levels = levels;
-  console.log(levels); */
-  // console.log(image);
 
   const topImage = document.querySelector(".screen3-7");
   topImage.innerHTML = `<div class="top-image">
@@ -165,7 +162,6 @@ function quizzSelected({ data }) {
 
   for (let j = 0; j < questions.length; j++) {
     let styleQuestionBg = `style="background-color: ${questions[j].color};"`;
-    console.log(styleQuestionBg);
     choices += `<div class="question-box">
                   <div class="question-box-top" ${styleQuestionBg}>
                     <h1>${questions[j].title}</h1>
@@ -177,11 +173,9 @@ function quizzSelected({ data }) {
         correctAnswer = "correct-answer";
 
       choices += `<div class="choices ${correctAnswer}" onclick="selectAnswer(this)">
-                    <img src=${questions[j].answers[k].image} alt="castle" />
+                    <img src=${questions[j].answers[k].image} />
                     <p>${questions[j].answers[k].text}</p>
                   </div>`;
-      // console.log('É CORRETA!')
-      // console.log(questions[j].answers[k].isCorrectAnswer)
     }
     choices += `</div>
                 </div>`;
@@ -240,7 +234,7 @@ function selectAnswer(answerDivElement) {
           <p>${totalScore}% de acerto: ${title}</p>
         </div>
         <div class="results-feedback">
-          <img src="${image}" alt="dumbledore" />
+          <img src="${image}" />
           <p>
             ${text}
           </p>
@@ -250,8 +244,6 @@ function selectAnswer(answerDivElement) {
         <div><button class="restart" onclick="restartQuizz()">Reiniciar Quizz</button></div>
         <div><button class="back-to-home" onclick="backToHome()">Voltar para home</button></div>
       </div>`;
-
-      console.log(screenQuizz.querySelector(".results"));
       screenQuizz
         .querySelector(".results")
         .scrollIntoView({ behavior: "smooth" });
@@ -260,7 +252,6 @@ function selectAnswer(answerDivElement) {
 }
 
 function restartQuizz() {
-  console.log(chooseQuizz);
   const promise = axios.get(`${GET_QUIZZES_URL}/${chooseQuizz}`);
   promise.then(quizzSelected);
 }
@@ -279,7 +270,6 @@ function selectLevel(totalScore) {
   let minValues = [];
   let index = 0;
 
-  console.log(levelsObject);
   for (const level of levelsObject) {
     minValues.push({
       index: index,
@@ -288,7 +278,7 @@ function selectLevel(totalScore) {
     index++;
   }
 
-  minValues = minValues.sort((a, b) => a.value - b.value); // NÃO ESTÁ OPERANDO PLENAMENTE
+  minValues = minValues.sort((a, b) => a.value - b.value);
 
   for (let i = 1; i < minValues.length; i++) {
     const lastMinValue = minValues[i - 1].value;
@@ -358,8 +348,6 @@ function clearCreationData() {
     questions: [],
     levels: [],
   };
-  console.log("data", quizzCreationData);
-  console.log("questions", quizzCreationData.questions);
 }
 
 function toCreateQuizzValidation() {
@@ -399,7 +387,6 @@ function toCreateQuizzValidation() {
     quizzCreationData.title = quizzTitleInput;
     quizzCreationData.image = quizzUrlInput;
 
-    console.log(quizzCreationData);
     toCreateQuestions();
   } else {
     alert("Validação errada!");
@@ -420,8 +407,6 @@ function isValidUrl(URL) {
 }
 
 /*-------------CRIAR PERGUNTAS-------------------*/
-
-// toCreateQuestions();
 
 function toCreateQuestions() {
   const screen8 = document.querySelector(".screen8");
@@ -496,7 +481,6 @@ function renderQuestions() {
     </div>`;
   }
 
-  // onclick="toValidateQuestion()">
   const insertButton = `<button
   class="btn-create-levels"
   onclick="questionValidation()">
@@ -581,15 +565,11 @@ function questionValidation() {
       return;
     }
   }
-
-  console.log("PODE ENVIAR MEU PARSA");
   toCreateLevels();
 }
 
 function toggleQuestion(currentQuestion) {
   const togglingQuestion = currentQuestion.parentNode;
-  // console.log("CL", currentLevel);
-  // console.log("TL", togglingLevel);
 
   togglingQuestion
     .querySelector(".question-title-container")
@@ -603,8 +583,6 @@ function toggleQuestion(currentQuestion) {
 }
 
 /*-------------CRIAR UM NÍVEL-------------------*/
-
-// toCreateLevels();
 
 function renderLevels() {
   let innerLevelInputs = "<h2>Agora, decida os níveis</h2>";
@@ -632,11 +610,11 @@ function renderLevels() {
             class="quizz-input level-url${i}"
             placeholder="URL da imagem do nível"
           />
-          <input
-            type="text"
-            class="quizz-input description level-description${i}"
-            placeholder="Descrição do nível"
-          />
+          <textarea
+          type="text"
+          class="quizz-input description level-description${i}"
+          placeholder="Descrição do nível">
+          </textarea>
         </div>
       </div>`;
     } else {
@@ -661,12 +639,12 @@ function renderLevels() {
             class="quizz-input level-url${i}"
             placeholder="URL da imagem do nível"
           />
-          <input
-            type="text"
-            class="quizz-input description level-description${i}"
-            placeholder="Descrição do nível"
-          />
-        </div></div>`;
+          <textarea
+          type="text"
+          class="quizz-input description level-description${i}"
+          placeholder="Descrição do nível">
+          </textarea>
+      </div></div>`;
     }
   }
 
@@ -685,9 +663,6 @@ function toCreateLevels() {
   renderLevels();
 }
 
-// Usar um .firstchild pra deixar o primeiro aberto por padrão?
-// O comportamento evita que todos os níveis estejam fechados? É obrigatório que um sempre esteja aberto ou não?
-
 function toCreateLevelsValidation() {
   let levelValidationNumber = 0;
   let minZero = 0;
@@ -704,7 +679,6 @@ function toCreateLevelsValidation() {
 
     if (levelTitleInput.length >= 10) {
       levelValidationNumber++;
-      // console.log("validou 1 título");
     } else {
       alert("O título deve ter pelo menos 10 caracteres.");
     }
@@ -738,7 +712,6 @@ function toCreateLevelsValidation() {
       text: levelDescriptionInput,
       minValue: levelPercentageInput,
     };
-    console.log(`pass ${i}`, quizzCreationData.levels[i]);
   }
 
   if (minZero === 0) {
@@ -753,10 +726,7 @@ function toCreateLevelsValidation() {
 }
 
 function toggleLevel(currentLevel) {
-  //Adicionar uma condição para que funcione quando o nível estiver fechado e o resultado der null
   const togglingLevel = currentLevel.parentNode;
-  // console.log("CL", currentLevel);
-  // console.log("TL", togglingLevel);
 
   togglingLevel
     .querySelector(".level-title-container")
@@ -772,7 +742,6 @@ function toggleLevel(currentLevel) {
 /*-------------FINALIZA CRIAÇÃO DO QUIZZ-------------------*/
 
 function renderFinalizedQuizz(response) {
-  console.log("render", response);
   const innerFinalizedScreen = `<h2>Seu quizz está pronto!</h2>
   <div class="created-quizz-img">
     <p class="created-quizz-title">${quizzTitleInput}</p>
@@ -792,32 +761,21 @@ function renderFinalizedQuizz(response) {
 }
 
 function toFinalizeQuizz(response) {
-  console.log("Não deu erro no envio!!!!");
   const screen10 = document.querySelector(".screen10");
   screen10.classList.add("hide");
   const screen11 = document.querySelector(".screen11");
   screen11.classList.remove("hide");
-  console.log("finalize", response);
-  myQuizzes.push(response.data.id);
-  console.log(myQuizzes, "LISTA DE ID DOS QUIZZES CRIADOS");
+  myQuizzes.push(response.data);
   const exemploSerializado = JSON.stringify(myQuizzes);
   localStorage.setItem("ids", exemploSerializado);
-  const listaSerializada = localStorage.getItem("ids"); // Pegando de volta a string armazenada na chave "lista"
-  ids = JSON.parse(listaSerializada); // Transformando a string de volta na array original
-  console.log(ids);
-  console.log(exemploSerializado);
-  console.log(myQuizzes);
   renderFinalizedQuizz(response);
 }
 
 function sendQuizzToServer() {
-  console.log(quizzCreationData);
-
   axios
     .post(POST_QUIZZES_URL, quizzCreationData)
     .then(toFinalizeQuizz)
     .catch((error) => {
-      console.log(error.response);
       alert("Algo deu errado!");
     });
 }
@@ -830,20 +788,12 @@ function returnToHome() {
   getQuizzes();
 }
 
-// tá quase igual à função quizzPage
-
 function viewCreatedQuizz(response) {
-  console.log(response.data);
   let quizzId = response.data.id;
-
-  // esconde a tela onde estou no momento adicionando a classe hide
   const screen11 = document.querySelector(".screen11");
   screen11.classList.add("hide");
-  // aparece a tela desktop 3 retirando a classe hide
   const screen3to7 = document.querySelector(".screen3-7");
   screen3to7.classList.remove("hide");
-
-  // console.log(quizz);
 
   const promise = axios.get(`${GET_QUIZZES_URL}/${quizzId}`);
   promise.then(quizzSelected);
