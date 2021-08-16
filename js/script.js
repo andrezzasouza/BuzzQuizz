@@ -755,7 +755,10 @@ function sendQuizzToServer() {
 
   axios.post(POST_QUIZZES_URL, quizzCreationData)
   .then(toFinalizeQuizz)
-  .catch(() => alert("Algo deu errado!"));
+  .catch((error) => {
+    console.log(error.response)
+    alert("Algo deu errado!")
+  });
 }
 
 function returnToHome() {
