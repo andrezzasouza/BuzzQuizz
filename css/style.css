@@ -39,6 +39,10 @@ header {
   z-index: 3;
 }
 
+button {
+  cursor: pointer;
+}
+
 /* TELA 1 - LISTA DE QUIZZES */
 
 main {
@@ -98,6 +102,11 @@ main h2 {
   justify-content: space-between;
 }
 
+.quizz-container::after {
+  content: '';
+  width: 340px;
+}
+
 .quizz {
   width: 340px;
   height: 181px;
@@ -122,6 +131,7 @@ main h2 {
   position: absolute;
   bottom: 11px;
   left: 18px;
+  line-break: anywhere;
 }
 
 .hide {
@@ -171,6 +181,7 @@ main h2 {
   color: #ffffff;
   position: relative;
   margin-left: 16px;
+  line-break: anywhere;
 }
 
 .my-quizz:first-child {
@@ -195,6 +206,7 @@ main h2 {
   align-items: center;
   justify-content: center;
   /* z-index: 1; */
+  padding: 26px;
 }
 
 .top-image h1 {
@@ -212,14 +224,14 @@ main h2 {
 
 .question-box {
   width: 759px;
-  height: 676px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
   margin-bottom: 50px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  padding: 25px;
+  padding: 36px;
+  background-color: #ffffff;
 }
 
 .question-box-top {
@@ -229,6 +241,7 @@ main h2 {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 22px 16px;
 }
 
 .question-box-top h1 {
@@ -240,11 +253,11 @@ main h2 {
 
 .question-box-choices {
   width: 688.16px;
-  height: 500.99px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  padding-top: 20px;
 }
 
 .choices {
@@ -262,6 +275,7 @@ main h2 {
   font-weight: bold;
   font-size: 20px;
   line-height: 23px;
+  line-break: anywhere;
   /* color: #000000; */
 }
 
@@ -606,7 +620,7 @@ h3 {
   main.screen10,
   main.screen11 {
     padding: 0;
-    margin: 107px auto 166px;
+    margin: 107px auto 80px;
   }
 
   .screen8 h2,
@@ -615,7 +629,17 @@ h3 {
   .screen11 h2 {
   font-size: 20px;
   line-height: 23.44px;
-}
+  }
+
+  /* TELA 1 */
+
+  main.screen1 {
+    margin: 100px auto 80px;
+  }
+
+  .create-quizz-box {
+    margin: 28px 0 29px;
+  }
 
   .btn-create-levels {
     width: 324px;
@@ -625,10 +649,147 @@ h3 {
   }
 
   .no-quizz {
-    margin: 0 auto 77px;
+    margin: 0 auto 35px;
   }
 
   .quizz-container {
     justify-content: space-evenly;
+  }
+
+  /* TELAS 3-7 */
+
+  main.screen3-7 {
+    padding: 0;
+  }
+
+  .top-image {
+    width: 100%;
+    height: 142px;
+    text-align: center;
+  }
+
+  .top-image h1 {
+    font-size: 19px;
+    line-height: 22.27px;
+    line-break: anywhere;
+  }
+
+  .question {
+    margin-top: 24px;
+  }
+
+  .question-box {
+    width: 100%;
+    padding: 18px 17px 24px;
+  }
+
+  .question-box-top {
+    width: 100%;
+  }
+
+  .question-box-top h1 {
+    font-size: 19px;
+    line-height: 22.27px;
+    line-break: anywhere;
+  }
+
+  .question-box-choices {
+    width: 100%;
+  }
+
+  .question-box-choices img {
+    width: 163px;
+    height: 113px;
+  }
+
+  .question-box-choices p {
+    width: 163px;
+    font-size: 13px;
+    line-height: 15.23px;
+  }
+
+  .results {
+    width: 100%;
+    height: auto;
+  }
+
+  .results-top {
+    padding: 22px 16px;
+    text-align: center;
+  }
+  
+  .results-top p {
+    font-size: 19px;
+    line-height: 22px;
+  }
+
+  .div-results {
+    width: 100%;
+  }
+
+  .results-feedback {
+    flex-direction: column;
+  }
+
+  .results-feedback img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+  }
+
+  .results-feedback p {
+    width: auto;
+    font-size: 17px;
+    line-height: 20px;
+  }
+
+  .buttons .restart {
+    width: 220.32px;
+    font-size: 18px;
+    line-height: 21.09px;
+    margin-bottom: 8px;
+  }
+
+  .buttons {
+    margin-top: 34px;
+  }
+
+  /* TELA 8 */
+
+  .btn-create-questions {
+    width: 323px;
+    font-size: 18px;
+    line-height: 21.09px;
+  }
+
+  /* TELA 9 */
+
+  .screen9 .create-question-box {
+    margin-top: 24px;
+    margin-bottom: 0;
+  }
+
+  .create-question-box div {
+    margin-bottom: 0;
+  }
+
+  .correct-answer-section,
+  .incorrect-answer-section {
+    margin-top: 28px;
+  }
+
+  /* TELA 11 */
+
+  .created-quizz-img {
+    width: 340px;
+    height: 181px;
+    margin: 29px auto 24px;
+  }
+
+  .btn-access-quizz,
+  .back-to-home {
+    font-size:18px;
+    line-height: 21.09px;
+    margin: 0 auto 9px;
   }
 }
