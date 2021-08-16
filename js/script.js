@@ -613,8 +613,7 @@ function renderLevels() {
           <textarea
           type="text"
           class="quizz-input description level-description${i}"
-          placeholder="Descrição do nível">
-          </textarea>
+          placeholder="Descrição do nível"></textarea>
         </div>
       </div>`;
     } else {
@@ -642,8 +641,7 @@ function renderLevels() {
           <textarea
           type="text"
           class="quizz-input description level-description${i}"
-          placeholder="Descrição do nível">
-          </textarea>
+          placeholder="Descrição do nível"></textarea>
       </div></div>`;
     }
   }
@@ -742,11 +740,12 @@ function toggleLevel(currentLevel) {
 /*-------------FINALIZA CRIAÇÃO DO QUIZZ-------------------*/
 
 function renderFinalizedQuizz(response) {
+  console.log(response.data);
   const innerFinalizedScreen = `<h2>Seu quizz está pronto!</h2>
   <div class="created-quizz-img">
     <p class="created-quizz-title">${quizzTitleInput}</p>
   </div>
-  <button class="btn-access-quizz" onclick="viewCreatedQuizz(${response});">Acessar Quizz</button>
+  <button class="btn-access-quizz" onclick="viewCreatedQuizz(${response.data.id});">Acessar Quizz</button>
   <button class="back-to-home" onclick="returnToHome();">Voltar pra home</button>`;
   document.querySelector(".screen11").innerHTML = innerFinalizedScreen;
   document.querySelector(
@@ -789,7 +788,7 @@ function returnToHome() {
 }
 
 function viewCreatedQuizz(response) {
-  let quizzId = response.data.id;
+  let quizzId = response;
   const screen11 = document.querySelector(".screen11");
   screen11.classList.add("hide");
   const screen3to7 = document.querySelector(".screen3-7");
