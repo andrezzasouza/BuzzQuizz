@@ -128,20 +128,7 @@ main h2 {
   display: none;
 }
 
-@media (max-width: 1100px) {
-  main {
-    width: 100%;
-    padding: 0 17px 0 18px;
-  }
 
-  .no-quizz {
-    margin: 0 auto 77px;
-  }
-
-  .quizz-container {
-    justify-content: space-evenly;
-  }
-}
 
 /* TELA 2 - LISTA DE QUIZZES */
 
@@ -238,7 +225,7 @@ main h2 {
 .question-box-top {
   width: 688.16px;
   height: 137.99px;
-  background: #434ca0;
+  /* background: #434ca0; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -468,13 +455,13 @@ h3 {
   line-height: 23px;
 }
 
-.uncollapsed-question h3,
-.uncollapsed-level h3 {
+.collapsed-question h3,
+.collapsed-level h3 {
   margin-bottom: 0;
 }
 
-.uncollapsed-question,
-.uncollapsed-level {
+.collapsed-question,
+.collapsed-level {
   width: 100%;
   height: 74px;
   background: #ffffff;
@@ -486,8 +473,8 @@ h3 {
   padding: 27px 24px 24px 17px;
 }
 
-.uncollapsed-question ion-icon,
-.uncollapsed-level ion-icon {
+.collapsed-question ion-icon,
+.collapsed-level ion-icon {
   width: 26px;
   height: 23px;
 }
@@ -524,13 +511,13 @@ h3 {
   
 }
 
-.collapsed-question,
-.collapsed-level {
+.uncollapsed-question,
+.uncollapsed-level {
   padding: 27px 20px 0 17px;
 }
 
-.collapsed-question ion-icon,
-.collapsed-level ion-icon {
+.uncollapsed-question ion-icon,
+.uncollapsed-level ion-icon {
   width: 26px;
   height: 23px;
   display: none;
@@ -603,4 +590,45 @@ h3 {
 
 .screen11 button {
   margin: 0 auto 20px;
+}
+
+
+/* MEDIA QUERIES */
+
+@media (max-width: 1100px) {
+  main {
+    width: 100%;
+    padding: 0 17px 0 18px;
+  }
+
+  main.screen8,
+  main.screen9,
+  main.screen10,
+  main.screen11 {
+    padding: 0;
+    margin: 107px auto 166px;
+  }
+
+  .screen8 h2,
+  .screen9 h2,
+  .screen10 h2,
+  .screen11 h2 {
+  font-size: 20px;
+  line-height: 23.44px;
+}
+
+  .btn-create-levels {
+    width: 324px;
+    font-size: 18px;
+    line-height: 21.09px;
+    margin: 46px auto 0;
+  }
+
+  .no-quizz {
+    margin: 0 auto 77px;
+  }
+
+  .quizz-container {
+    justify-content: space-evenly;
+  }
 }
