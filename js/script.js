@@ -63,6 +63,19 @@ function listOfQuizzes(response) {
         </div>
       </section>
     `;
+  } else {
+    const renderCreateQuizzBox = document.querySelector(".screen1");
+    renderCreateQuizzBox.innerHTML = `<section class="no-quizz">
+    <p>Você não criou nenhum Quizz ainda :(</p>
+    <button class="btn-create-quizz" onclick="toCreateQuizz()">
+      Criar Quizz
+    </button>
+  </section>
+  <section>
+    <h2>Todos os Quizzes</h2>
+    <div class="quizz-container"></div>
+    </section>
+    `;
   }
 
   const renderQuizzes = document.querySelector(".quizz-container");
@@ -621,7 +634,7 @@ function renderLevels() {
           />
           <input
             type="text"
-            class="quizz-input level-description${i}"
+            class="quizz-input description level-description${i}"
             placeholder="Descrição do nível"
           />
         </div>
@@ -650,7 +663,7 @@ function renderLevels() {
           />
           <input
             type="text"
-            class="quizz-input level-description${i}"
+            class="quizz-input description level-description${i}"
             placeholder="Descrição do nível"
           />
         </div></div>`;
