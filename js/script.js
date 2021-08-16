@@ -26,11 +26,41 @@ function getQuizzes() {
 
 let path;
 let chooseQuizz;
+const myQuizzes = [];
 
 function listOfQuizzes(response) {
   // console.log(response.data);
+  console.log(localStorage.ids.length);
   path = response.data;
   console.log(path, "caminho");
+
+  if (localStorage.ids.length > 0) {
+    const noQuizz = document.querySelector(".no-quizz");
+    console.log(noQuizz);
+    noQuizz.remove();
+    const renderMyQuizzes = document.querySelector(".screen1");
+    renderMyQuizzes.innerHTML = `
+    <section class="my-quizzes">
+        <div class="my-quizzes-top">
+          <h2>Seus quizzes</h2>
+          <ion-icon name="add-circle" onclick="toCreateQuizz()"></ion-icon>
+        </div>
+        <div class="my-quizzes-container">
+          <div class="my-quizz">
+            <p class="quizz-title">O quão Potterhead é você?</p>
+          </div>
+          <div class="my-quizz">
+            <p class="quizz-title"></p>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>Todos os Quizzes</h2>
+        <div class="quizz-container">
+        </div>
+      </section>
+    `;
+  }
 
   const renderQuizzes = document.querySelector(".quizz-container");
 
@@ -118,8 +148,8 @@ function quizzSelected({ data }) {
   let choices = "";
 
   for (let j = 0; j < questions.length; j++) {
-    let styleQuestionBg = `style="background-color: ${questions[j].color};"`
-    console.log(styleQuestionBg)
+    let styleQuestionBg = `style="background-color: ${questions[j].color};"`;
+    console.log(styleQuestionBg);
     choices += `<div class="question-box">
                   <div class="question-box-top" ${styleQuestionBg}>
                     <h1>${questions[j].title}</h1>
@@ -293,7 +323,7 @@ let quizzCreationData = {
           isCorrectAnswer: false,
         },
       ],
-    }
+    },
   ],
   levels: [
     {
@@ -310,15 +340,14 @@ function clearCreationData() {
     title: "",
     image: "",
     questions: [],
-    levels: []
-  }
-  console.log('data', quizzCreationData)
-  console.log('questions', quizzCreationData.questions)
-
+    levels: [],
+  };
+  console.log("data", quizzCreationData);
+  console.log("questions", quizzCreationData.questions);
 }
 
 function toCreateQuizzValidation() {
-  clearCreationData()
+  clearCreationData();
 
   let validationNumber = 0;
   quizzTitleInput = document.querySelector(".quizz-input.title").value;
@@ -338,7 +367,6 @@ function toCreateQuizzValidation() {
     alert("A URL não é válida.");
   }
 
-
   if (quizzQuestionsInput >= 3) {
     validationNumber++;
   } else {
@@ -352,8 +380,8 @@ function toCreateQuizzValidation() {
   }
 
   if (validationNumber >= 4) {
-    quizzCreationData.title = quizzTitleInput
-    quizzCreationData.image = quizzUrlInput
+    quizzCreationData.title = quizzTitleInput;
+    quizzCreationData.image = quizzUrlInput;
 
     console.log(quizzCreationData);
     toCreateQuestions();
@@ -362,21 +390,22 @@ function toCreateQuizzValidation() {
   }
 }
 
-
 function isValidUrl(URL) {
-  const pattern = new RegExp('^(https?:\\/\\/)?'+  // protocolo
-    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+  // nome de domínio
-    '((\\d{1,3}\\.){3}\\d{1,3}))'+  // OR ip (v4) do endereço
-    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+  // porta e caminho
-    '(\\?[;&a-z\\d%_.~+=-]*)?'+  // query string
-    '(\\#[-a-z\\d_]*)?$','i');  // fragment locator
+  const pattern = new RegExp(
+    "^(https?:\\/\\/)?" + // protocolo
+      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // nome de domínio
+      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) do endereço
+      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // porta e caminho
+      "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+      "(\\#[-a-z\\d_]*)?$",
+    "i"
+  ); // fragment locator
   return !!pattern.test(URL);
 }
 
 /*-------------CRIAR PERGUNTAS-------------------*/
 
 // toCreateQuestions();
-
 
 function toCreateQuestions() {
   const screen8 = document.querySelector(".screen8");
@@ -387,26 +416,25 @@ function toCreateQuestions() {
 }
 
 function renderQuestions() {
-
   let innerQuestionsInputs = "<h2>Crie suas perguntas</h2>";
 
-  for (let i=0; i<quizzQuestionsInput; i++) {
-    if (i===0) {
+  for (let i = 0; i < quizzQuestionsInput; i++) {
+    if (i === 0) {
       innerQuestionsInputs += `<div class="create-question-box">
       <div class="question-title-container uncollapsed-question" onclick="toggleQuestion(this)">
-        <h3>Pergunta ${i+1}</h3>
+        <h3>Pergunta ${i + 1}</h3>
         <ion-icon name="create-outline"></ion-icon>
       </div>
-      <div class="question-input-container">`
+      <div class="question-input-container">`;
     } else {
       innerQuestionsInputs += `<div class="create-question-box">
       <div class="question-title-container collapsed-question" onclick="toggleQuestion(this)">
-        <h3>Pergunta ${i+1}</h3>
+        <h3>Pergunta ${i + 1}</h3>
         <ion-icon name="create-outline"></ion-icon>
       </div>
-      <div class="question-input-container hide">`
+      <div class="question-input-container hide">`;
     }
-    innerQuestionsInputs+= `<div class="question-inputs">
+    innerQuestionsInputs += `<div class="question-inputs">
         <input
           type="text"
           class="quizz-input question-text${i}"
@@ -433,9 +461,9 @@ function renderQuestions() {
         />
       </div>
       <div class="incorrect-answer-section">
-        <h3>Respostas incorretas</h3>`
-      for (let j=1; j<4; j++) {
-        innerQuestionsInputs += `<div><input
+        <h3>Respostas incorretas</h3>`;
+    for (let j = 1; j < 4; j++) {
+      innerQuestionsInputs += `<div><input
           type="text"
           class="quizz-input incorrect-answer${i}-${j}"
           placeholder="Resposta incorreta ${j}"
@@ -445,101 +473,102 @@ function renderQuestions() {
           class="quizz-input incorrect-image${i}-${j}"
           placeholder="URL da imagem ${j}"
         />
-        </div>`
-      }
-      innerQuestionsInputs += `</div>
+        </div>`;
+    }
+    innerQuestionsInputs += `</div>
       </div>
-    </div>`
+    </div>`;
   }
-  
+
   // onclick="toValidateQuestion()">
   const insertButton = `<button
   class="btn-create-levels"
   onclick="questionValidation()">
     Prosseguir pra criar níveis
-  </button>`
+  </button>`;
   document.querySelector(".screen9").innerHTML =
     innerQuestionsInputs + insertButton;
 }
 
-
 function questionValidation() {
-  for (let i=0; i<quizzQuestionsInput; i++) {
+  for (let i = 0; i < quizzQuestionsInput; i++) {
     let questionTextInput = document.querySelector(`.question-text${i}`).value;
-    let questionBgColorInput = document.querySelector(`.question-bg-color${i}`).value;
-    let correctAnswerInput = document.querySelector(`.correct-answer${i}`).value;
+    let questionBgColorInput = document.querySelector(
+      `.question-bg-color${i}`
+    ).value;
+    let correctAnswerInput = document.querySelector(
+      `.correct-answer${i}`
+    ).value;
     let correctImageInput = document.querySelector(`.image-url${i}`).value;
 
     quizzCreationData.questions[i] = {
       title: questionTextInput,
       color: questionBgColorInput,
-      answers: []
-    }
+      answers: [],
+    };
 
-    const isValidInput = (input) => (input !== null && input !== '' && input !== undefined)
+    const isValidInput = (input) =>
+      input !== null && input !== "" && input !== undefined;
 
     if (questionTextInput < 20) {
-
-      alert(`Número mínimo de 20 caractéres para o título da pergunta ${i+1}!`)
-      return
+      alert(
+        `Número mínimo de 20 caractéres para o título da pergunta ${i + 1}!`
+      );
+      return;
     }
 
     if (!isValidInput(correctAnswerInput)) {
-
-      alert(`Resposta correta da pergunta ${i+1} não pode ser vazia!`)
-      return
+      alert(`Resposta correta da pergunta ${i + 1} não pode ser vazia!`);
+      return;
     }
-    
+
     if (!isValidUrl(correctImageInput)) {
-
-      alert(`URL da imagem correta da pergunta ${i+1} inválida!`)
-      return
+      alert(`URL da imagem correta da pergunta ${i + 1} inválida!`);
+      return;
     }
-    
+
     quizzCreationData.questions[i].answers[0] = {
       text: correctAnswerInput,
       image: correctImageInput,
       isCorrectAnswer: true,
-    }
-    
-    let haveOneIncorrectValid = false
-    let countValidAnswers = 1
-    for (let j=1; j<4; j++) {
+    };
 
-      let incorrectAnswerInput = document.querySelector(`.incorrect-answer${i}-${j}`).value;
-      let incorrectImageInput = document.querySelector(`.incorrect-image${i}-${j}`).value;
+    let haveOneIncorrectValid = false;
+    let countValidAnswers = 1;
+    for (let j = 1; j < 4; j++) {
+      let incorrectAnswerInput = document.querySelector(
+        `.incorrect-answer${i}-${j}`
+      ).value;
+      let incorrectImageInput = document.querySelector(
+        `.incorrect-image${i}-${j}`
+      ).value;
 
-      
       if (isValidInput(incorrectAnswerInput)) {
-        
-        haveOneIncorrectValid = true
-        
+        haveOneIncorrectValid = true;
+
         if (!isValidUrl(incorrectImageInput)) {
-          
-          alert(`URL da imagem incorreta ${j} da pergunta ${i+1} inválida!`)
-          return
+          alert(`URL da imagem incorreta ${j} da pergunta ${i + 1} inválida!`);
+          return;
         }
-        
+
         quizzCreationData.questions[i].answers[countValidAnswers] = {
           text: incorrectAnswerInput,
           image: incorrectImageInput,
           isCorrectAnswer: false,
-        }
-        countValidAnswers++
+        };
+        countValidAnswers++;
       }
     }
 
     if (!haveOneIncorrectValid) {
-      alert(`A pergunta ${i+1} deve ter pelo menos uma resposta incorreta!`)
-      return
+      alert(`A pergunta ${i + 1} deve ter pelo menos uma resposta incorreta!`);
+      return;
     }
   }
 
-  console.log('PODE ENVIAR MEU PARSA')
-  toCreateLevels()
-
+  console.log("PODE ENVIAR MEU PARSA");
+  toCreateLevels();
 }
-
 
 function toggleQuestion(currentQuestion) {
   const togglingQuestion = currentQuestion.parentNode;
@@ -564,8 +593,8 @@ function toggleQuestion(currentQuestion) {
 function renderLevels() {
   let innerLevelInputs = "<h2>Agora, decida os níveis</h2>";
 
-  for (let i=0; i<quizzLevelsInput; i++) {
-    if (i===0) {
+  for (let i = 0; i < quizzLevelsInput; i++) {
+    if (i === 0) {
       innerLevelInputs += `<div class="create-level-box">
         <div class="level-title-container uncollapsed-level" onclick="toggleLevel(this);">
           <h3>Nível 1</h3>
@@ -597,7 +626,7 @@ function renderLevels() {
     } else {
       innerLevelInputs += `<div class="create-level-box">
       <div class="level-title-container collapsed-level" onclick="toggleLevel(this);">
-      <h3>Nível ${i+1}</h3>
+      <h3>Nível ${i + 1}</h3>
       <ion-icon name="create-outline"></ion-icon>
       </div>
       <div class="level-input-container hide">
@@ -647,7 +676,7 @@ function toCreateLevelsValidation() {
   let levelValidationNumber = 0;
   let minZero = 0;
 
-  for (let i=0; i<quizzLevelsInput; i++) {
+  for (let i = 0; i < quizzLevelsInput; i++) {
     let levelTitleInput = document.querySelector(`.level-title${i}`).value;
     let levelPercentageInput = parseInt(
       document.querySelector(`.level-percentage${i}`).value
@@ -665,7 +694,7 @@ function toCreateLevelsValidation() {
     }
 
     if (levelPercentageInput >= 0 && levelPercentageInput <= 100) {
-      levelValidationNumber++
+      levelValidationNumber++;
       if (levelPercentageInput === 0) {
         // validar se pelo menos um deles é 0
         minZero++;
@@ -676,7 +705,7 @@ function toCreateLevelsValidation() {
     }
 
     if (isValidUrl(levelUrlInput)) {
-      levelValidationNumber++
+      levelValidationNumber++;
     } else {
       alert("A URL é inválida.");
     }
@@ -747,24 +776,31 @@ function renderFinalizedQuizz(response) {
 }
 
 function toFinalizeQuizz(response) {
-  console.log('Não deu erro no envio!!!!')
+  console.log("Não deu erro no envio!!!!");
   const screen10 = document.querySelector(".screen10");
   screen10.classList.add("hide");
   const screen11 = document.querySelector(".screen11");
   screen11.classList.remove("hide");
   console.log("finalize", response);
+  myQuizzes.push(response.data.id);
+  console.log(myQuizzes, "LISTA DE ID DOS QUIZZES CRIADOS");
+  const exemploSerializado = JSON.stringify(myQuizzes);
+  localStorage.setItem("ids", exemploSerializado);
+  console.log(exemploSerializado);
+  console.log(myQuizzes);
   renderFinalizedQuizz(response);
 }
 
 function sendQuizzToServer() {
   console.log(quizzCreationData);
 
-  axios.post(POST_QUIZZES_URL, quizzCreationData)
-  .then(toFinalizeQuizz)
-  .catch((error) => {
-    console.log(error.response)
-    alert("Algo deu errado!")
-  });
+  axios
+    .post(POST_QUIZZES_URL, quizzCreationData)
+    .then(toFinalizeQuizz)
+    .catch((error) => {
+      console.log(error.response);
+      alert("Algo deu errado!");
+    });
 }
 
 function returnToHome() {
