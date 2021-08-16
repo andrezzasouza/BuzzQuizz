@@ -27,10 +27,13 @@ function getQuizzes() {
 let path;
 let chooseQuizz;
 const myQuizzes = [];
+let ids;
 
 function listOfQuizzes(response) {
   // console.log(response.data);
-  console.log(localStorage.ids.length);
+  /* console.log(exemploSerializado);
+  console.log(myQuizzes);
+  console.log(typeof myQuizzes); */
   path = response.data;
   console.log(path, "caminho");
 
@@ -46,7 +49,7 @@ function listOfQuizzes(response) {
           <ion-icon name="add-circle" onclick="toCreateQuizz()"></ion-icon>
         </div>
         <div class="my-quizzes-container">
-          <div class="my-quizz">
+          <div class="my-quizz"> 
             <p class="quizz-title">O quão Potterhead é você?</p>
           </div>
           <div class="my-quizz">
@@ -786,6 +789,9 @@ function toFinalizeQuizz(response) {
   console.log(myQuizzes, "LISTA DE ID DOS QUIZZES CRIADOS");
   const exemploSerializado = JSON.stringify(myQuizzes);
   localStorage.setItem("ids", exemploSerializado);
+  const listaSerializada = localStorage.getItem("ids"); // Pegando de volta a string armazenada na chave "lista"
+  ids = JSON.parse(listaSerializada); // Transformando a string de volta na array original
+  console.log(ids);
   console.log(exemploSerializado);
   console.log(myQuizzes);
   renderFinalizedQuizz(response);
